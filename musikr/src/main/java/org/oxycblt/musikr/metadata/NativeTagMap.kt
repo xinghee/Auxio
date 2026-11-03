@@ -19,6 +19,7 @@
 package org.oxycblt.musikr.metadata
 
 import org.oxycblt.musikr.util.correctWhitespace
+import org.oxycblt.musikr.util.fixLegacyEncoding
 
 internal class NativeTagMap {
     private val map = mutableMapOf<String, List<String>>()
@@ -31,7 +32,7 @@ internal class NativeTagMap {
         if (values.isEmpty()) {
             return
         }
-        val correctedValues = values.mapNotNull { it.correctWhitespace() }
+        val correctedValues = values.mapNotNull { it.fixLegacyEncoding().correctWhitespace() }
         if (correctedValues.isEmpty()) {
             return
         }
@@ -46,7 +47,7 @@ internal class NativeTagMap {
         if (values.isEmpty()) {
             return
         }
-        val correctedValues = values.mapNotNull { it.correctWhitespace() }
+        val correctedValues = values.mapNotNull { it.fixLegacyEncoding().correctWhitespace() }
         if (correctedValues.isEmpty()) {
             return
         }
@@ -61,7 +62,7 @@ internal class NativeTagMap {
         if (values.isEmpty()) {
             return
         }
-        val correctedValues = values.mapNotNull { it.correctWhitespace() }
+        val correctedValues = values.mapNotNull { it.fixLegacyEncoding().correctWhitespace() }
         if (correctedValues.isEmpty()) {
             return
         }
