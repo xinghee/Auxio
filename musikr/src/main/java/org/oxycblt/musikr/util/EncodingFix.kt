@@ -50,10 +50,8 @@ internal fun String.fixLegacyEncoding(): String {
     }
 
     val raw = ByteArray(length) { index -> get(index).code.toByte() }
-    val highBytes = raw.count { (it.toInt() and 0xFF) >= 0x80 }
-    // Reject pure ASCII, and reject Western names like "Müller" where a single high byte would
-    // be mis-paired into a CJK glyph by GB18030.
-    if (highBytes < 2 || highBytes * 2 < raw.size) {
+    // Pure ASCII, or a Western name with a single accented letter ("Café", "Müller").
+    if (raw.count { (it.toInt() and 0xFF) >= 0x80 } < 2) {
         return this
     }
 
@@ -61,14 +59,46 @@ internal fun String.fixLegacyEncoding(): String {
     decodeStrict(raw, Charsets.UTF_8)?.takeIf { decoded -> decoded.any { it.code > 0xFF } }?.let {
         return it
     }
+    // GBK encodes every CJK glyph as exactly two bytes, so its high bytes always come in
+    // even-length runs. An isolated high byte ("Björk - Homogénic") is therefore not GBK.
+    // Note this must not require high bytes to dominate: album names like
+    // "BEYOND - 25◌◌◌◌" are mostly ASCII and would otherwise be skipped.
+    if (!hasEvenHighRuns(raw)) {
+        return this
+    }
     // GB18030 is a superset of GBK, which is what Chinese taggers actually wrote.
     decodeStrict(raw, GB18030)
-        ?.takeIf { decoded -> decoded.any { it.code in CJK_FIRST..CJK_LAST } }
+        ?.takeIf { decoded ->
+            decoded.any { it.code in CJK_FIRST..CJK_LAST } && decoded.none { it.isISOControl() }
+        }
         ?.let {
             return it
         }
 
     return this
+}
+
+/**
+ * Whether every run of non-ASCII bytes has an even length, which is what a double-byte GBK string
+ * looks like once read back through Latin-1.
+ */
+private fun hasEvenHighRuns(bytes: ByteArray): Boolean {
+    var i = 0
+    while (i < bytes.size) {
+        if ((bytes[i].toInt() and 0xFF) < 0x80) {
+            i++
+            continue
+        }
+        var end = i
+        while (end < bytes.size && (bytes[end].toInt() and 0xFF) >= 0x80) {
+            end++
+        }
+        if ((end - i) % 2 != 0) {
+            return false
+        }
+        i = end
+    }
+    return true
 }
 
 private fun decodeStrict(bytes: ByteArray, charset: Charset): String? =

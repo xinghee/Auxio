@@ -29,6 +29,13 @@ class EncodingFixTest {
     }
 
     @Test
+    fun fixLegacyEncoding_repairsGbkAlbumWithAsciiPrefix() {
+        // The high bytes here are only 4 out of 21, which is normal for an album name.
+        assertEquals("BEYOND - 25周年", "BEYOND - 25ÖÜÄê".fixLegacyEncoding())
+        assertEquals("周年", "ÖÜÄê".fixLegacyEncoding())
+    }
+
+    @Test
     fun fixLegacyEncoding_repairsUtf8MislabelledAsLatin1() {
         val mojibake = String("逝去日子".toByteArray(Charsets.UTF_8), Charsets.ISO_8859_1)
         assertEquals("逝去日子", mojibake.fixLegacyEncoding())
@@ -38,6 +45,9 @@ class EncodingFixTest {
     fun fixLegacyEncoding_leavesWesternNamesAlone() {
         assertEquals("Café", "Café".fixLegacyEncoding())
         assertEquals("Müller", "Müller".fixLegacyEncoding())
+        assertEquals("Björk", "Björk".fixLegacyEncoding())
+        // Two isolated high bytes must not be paired into a CJK glyph.
+        assertEquals("Björk - Homogénic", "Björk - Homogénic".fixLegacyEncoding())
     }
 
     @Test
