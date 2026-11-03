@@ -12,6 +12,11 @@ plugins {
 // CI 传 -PauxioAbi=all 时出全 ABI 的通用包，给模拟器和老设备用。
 def targetAbi = (project.findProperty("auxioAbi") ?: "arm64-v8a").toString()
 
+// 固定签名：CI 从仓库 secret 里还原 keystore 并传进来，这样每次构建的签名一致，
+// 用户可以直接覆盖升级。缺失时回退到 AGP 现生成的 debug key（本地构建用）。
+def auxioStorePath = project.findProperty("auxioStoreFile")?.toString()
+def hasAuxioKeystore = auxioStorePath != null && new File(auxioStorePath).exists()
+
 android {
     // Auxio implicitly depends on the native modules, explicitly specify it
     // here so the libraries are still stripped.
@@ -52,6 +57,17 @@ android {
         }
     }
 
+    signingConfigs {
+        if (hasAuxioKeystore) {
+            auxio {
+                storeFile file(auxioStorePath)
+                storePassword project.findProperty("auxioStorePassword")
+                keyAlias project.findProperty("auxioKeyAlias")
+                keyPassword project.findProperty("auxioKeyPassword")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
@@ -76,7 +92,7 @@ android {
             applicationIdSuffix ".debug"
             // 让包名后缀跟着 ABI 走，免得两个包在设置里分不清谁是谁。
             versionNameSuffix(targetAbi == "all" ? "-universal" : "-arm64")
-            signingConfig signingConfigs.debug
+            signingConfig hasAuxioKeystore ? signingConfigs.auxio : signingConfigs.debug
             matchingFallbacks = ["release"]
         }
     }

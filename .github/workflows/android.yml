@@ -29,12 +29,40 @@ jobs:
     - name: Run musikr unit tests
       run: ./gradlew :musikr:testDebugUnitTest --no-daemon
       continue-on-error: true
+    - name: Decode signing keystore
+      env:
+        SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+      run: |
+        if [ -z "$SIGNING_KEY_BASE64" ]; then
+          echo "::warning::SIGNING_KEY_BASE64 is not set, falling back to a generated debug key"
+          exit 0
+        fi
+        echo "$SIGNING_KEY_BASE64" | base64 -d > "$RUNNER_TEMP/auxio.jks"
+        echo "keystore restored: $(stat -c %s "$RUNNER_TEMP/auxio.jks") bytes"
     - name: Build arm64 canary APK with Gradle
-      run: ./gradlew app:packageCanary -PauxioAbi=arm64-v8a
+      env:
+        AUXIO_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        AUXIO_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        AUXIO_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+      run: |
+        ./gradlew app:packageCanary -PauxioAbi=arm64-v8a \
+          -PauxioStoreFile="$RUNNER_TEMP/auxio.jks" \
+          -PauxioStorePassword="$AUXIO_STORE_PASSWORD" \
+          -PauxioKeyAlias="$AUXIO_KEY_ALIAS" \
+          -PauxioKeyPassword="$AUXIO_KEY_PASSWORD"
     - name: Stage arm64 APK
       run: mkdir -p dist && cp app/build/outputs/apk/canary/app-canary.apk dist/Auxio_arm64.apk
     - name: Build universal canary APK with Gradle
-      run: ./gradlew app:packageCanary -PauxioAbi=all
+      env:
+        AUXIO_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        AUXIO_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        AUXIO_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+      run: |
+        ./gradlew app:packageCanary -PauxioAbi=all \
+          -PauxioStoreFile="$RUNNER_TEMP/auxio.jks" \
+          -PauxioStorePassword="$AUXIO_STORE_PASSWORD" \
+          -PauxioKeyAlias="$AUXIO_KEY_ALIAS" \
+          -PauxioKeyPassword="$AUXIO_KEY_PASSWORD"
     - name: Stage universal APK
       run: cp app/build/outputs/apk/canary/app-canary.apk dist/Auxio_universal.apk
     - name: Upload canary APK artifact
