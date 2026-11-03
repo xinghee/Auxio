@@ -73,7 +73,7 @@ internal class LrcLineAdapter(private val onSeek: (Long) -> Unit) :
             binding.lrcText.text = line.text
             val attribute =
                 if (isCurrent) {
-                    com.google.android.material.R.attr.colorPrimary
+                    androidx.appcompat.R.attr.colorPrimary
                 } else {
                     com.google.android.material.R.attr.colorOnSurfaceVariant
                 }

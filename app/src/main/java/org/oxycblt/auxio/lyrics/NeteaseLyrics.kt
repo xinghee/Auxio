@@ -149,7 +149,7 @@ internal class NeteaseLyrics {
                 continue
             }
             val translated =
-                byTime[first.timeMs] ?: byTime.entries.firstOrNull { abs(it.key - first.timeMs) < 20 }?.value
+                byTime[first.timeMs] ?: byTime.entries.firstOrNull { abs(it.key - first.timeMs) < 20L }?.value
             if (translated.isNullOrEmpty() || translated == first.text) {
                 out.append(line).append('\n')
             } else {

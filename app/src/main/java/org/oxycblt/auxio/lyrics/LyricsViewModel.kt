@@ -30,6 +30,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.oxycblt.auxio.R
 import org.oxycblt.auxio.music.MusicRepository
+import org.oxycblt.auxio.music.resolve
 import org.oxycblt.auxio.music.MusicSettings
 import org.oxycblt.musikr.lyrics.Lrc
 import timber.log.Timber as L
