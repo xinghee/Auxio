@@ -47,6 +47,44 @@ internal class RawFrame(
     val texts: List<String>?,
 )
 
+/** A text value that would change if a tag were rewritten. Public so the app can show it. */
+class TagRepairResult(val frameId: String, val before: String, val after: String)
+
+/**
+ * Opaque handle for an inspected tag.
+ *
+ * The frame table stays internal; hand this straight back to [TagEncoderRepair.rewrite].
+ */
+class TagRepairInfo internal constructor(
+    val fixes: List<TagRepairResult>,
+    /** Size of the ID3v2 block at the start of the file, header included. */
+    val tagSize: Int,
+    internal val analysis: Id3TagAnalysis,
+)
+
+/** Public entry point for repairing mislabelled ID3v2 text encodings. */
+object TagEncoderRepair {
+    /**
+     * Inspect a file's ID3v2 tag.
+     *
+     * @return null when there is no tag we can work with.
+     */
+    fun analyze(bytes: ByteArray): TagRepairInfo? {
+        val analysis = Id3v2Rewriter.analyze(bytes) ?: return null
+        val fixes = analysis.fixes.map { TagRepairResult(it.frameId, it.before, it.after) }
+        return TagRepairInfo(fixes, analysis.tagSize, analysis)
+    }
+
+    /**
+     * Rewrite the tag, re-encoding only the frames that need it.
+     *
+     * @param bytes The whole file, as [analyze] received it.
+     * @return The new file contents, or null when nothing changed.
+     */
+    fun rewrite(bytes: ByteArray, info: TagRepairInfo): ByteArray? =
+        Id3v2Rewriter.rewrite(bytes, info.analysis)
+}
+
 /**
  * Rewrites the text encoding of an ID3v2 tag without touching anything else.
  *
