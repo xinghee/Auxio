@@ -83,15 +83,19 @@ TagLib 严格照声明用 Latin-1 解码，于是「逝去日子」的 GBK 字�
 
 ## 下载
 
-到 [Releases](https://github.com/xinghee/Auxio/releases) 取包，两个版本二选一：
+到 [Releases](https://github.com/xinghee/Auxio/releases) 取包。两个包**代码完全一样**，都是 R8 裁剪版，含应用内标签修复，区别只在打包了哪些 ABI 的原生库。
 
-| 文件 | 大小 | 说明 |
-|---|---|---|
-| `Auxio_v*-cjk*_arm64.apk` | **6.4 MB** | **推荐**。R8 裁剪 + 仅 arm64-v8a，含应用内标签修复 |
-| `Auxio_v*-cjk*_debug.apk` | 23.5 MB | 未裁剪的 debug 包，全 ABI，留着给 x86 模拟器 |
+| 文件 | 大小 | ABI | 什么时候用 |
+|---|---|---|---|
+| `Auxio_v*-cjk*_arm64.apk` | **6.4 MB** | arm64-v8a | **默认选这个**。2017 年之后的手机基本都是 arm64 |
+| `Auxio_v*-cjk*_universal.apk` | **10.7 MB** | arm64-v8a / armeabi-v7a / x86 / x86_64 | 安卓模拟器、老 32 位设备、不确定机型时 |
 
-- 包名是 `org.oxycblt.auxio.debug`，**可以和官方正式版并存**，不会覆盖，也不共用媒体库缓存
-- 签名是 CI 每次现生成的 debug keystore：两个包之间、不同次构建之间签名都不同，**换包前先卸载**
+差的 4.3 MB 全在 `lib/` 里：通用包多带 armeabi-v7a 和 x86/x86_64 两份 `libtagJNI.so`、`libffmpegJNI.so`。功能、界面、dex 完全一致。
+
+- 两个包名都是 `org.oxycblt.auxio.debug`，**可以和官方正式版并存**，不覆盖、也不共用媒体库缓存
+- 两个包**互相之间的签名相同**（同一次 CI 生成的 debug keystore），可以直接覆盖安装切换
+- 但**不同次构建之间签名不同**，从更早的包升级要先卸载
+- 装完在系统设置里看版本号后缀即可分辨：`4.1.5-arm64` / `4.1.5-universal`
 - 首次打开会重新扫描媒体库，中文歌名即刻生效
 
 **如果个别歌曲还是乱码**：先用应用内的「修复标签编码」把文件改对（见上一节），这样所有播放器都正常；只想让 Auxio 显示正常的话，也可以用 设置 → 清除该应用数据 → 重新扫描，缓存以 `uri + 文件修改时间` 为键，文件没变就会命中旧缓存。
@@ -108,10 +112,20 @@ git rebase upstream/dev
 
 ## 自己编译
 
-上游要求 `cmake` + `ninja-build` + NDK `28.2.13676358` + JDK 21，并且**不能在 Windows 上构建**（Media3 的自定义构建跑的是 Unix shell 脚本）。所以这个分支走 GitHub Actions，产出 `canary` 变体（release 的 R8 配置 + `.debug` 包名 + 仅 arm64）：
+上游要求 `cmake` + `ninja-build` + NDK `28.2.13676358` + JDK 21，并且**不能在 Windows 上构建**（Media3 的自定义构建跑的是 Unix shell 脚本）。所以这个分支走 GitHub Actions，产出 `canary` 变体（release 的 R8 配置 + `.debug` 包名）：
 
 - 到 Actions 页面点 **Run workflow**（fork 仓库的 workflow 不会随 push 自动跑，实测 push 无反应）
-- 产物在对应 run 的 **Artifacts** 里：`Auxio_Canary_arm64`
+- 一次构建出两个包，都在 run 的 **Artifacts** 里：`Auxio_Canary` 这个 artifact 内含 `Auxio_arm64.apk` 和 `Auxio_universal.apk`
+
+打包哪些 ABI 由 Gradle 属性控制：
+
+```bash
+./gradlew app:packageCanary                        # 默认只出 arm64-v8a
+./gradlew app:packageCanary -PauxioAbi=all         # 全 ABI（与官方包一致）
+./gradlew app:packageCanary -PauxioAbi=armeabi-v7a # 也可以指定单个
+```
+
+`versionNameSuffix` 会跟着变成 `-arm64` / `-universal`，装完能分辨。
 
 想本地跑单测（不产出 APK）：
 
@@ -119,7 +133,7 @@ git rebase upstream/dev
 ./gradlew :musikr:testDebugUnitTest
 ```
 
-体积参考：debug 变体全 ABI 是 23.5 MB（dex 未裁剪 12 MB + 4 个 ABI 的 .so 7.8 MB），canary 只留 arm64 并走 R8 后是 6.4 MB。
+体积参考：debug 变体全 ABI 是 23.5 MB（dex 未裁剪 12 MB + 4 个 ABI 的 .so 7.8 MB）；canary 走 R8 后，只留 arm64 是 6.4 MB、全 ABI 是 10.7 MB。
 
 ## 屏幕截图
 
