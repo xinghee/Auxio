@@ -26,6 +26,12 @@ android {
         targetSdk target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 自编译变体只出 arm64，去掉 x86/x86_64/armeabi-v7a 可省约 5.6 MB。
+        // 覆盖 2017 年之后的绝大多数设备。
+        ndk {
+            abiFilters "arm64-v8a"
+        }
     }
 
     compileOptions {
@@ -55,6 +61,16 @@ android {
                 includeInApk = false
                 includeInBundle = false
             }
+        }
+
+        // 自编译变体：走 release 的 R8 + 资源裁剪（体积约为 debug 的一半），
+        // 但保留 .debug 包名，装上去不会顶掉官方正式版。
+        canary {
+            initWith release
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-arm64"
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ["release"]
         }
     }
 

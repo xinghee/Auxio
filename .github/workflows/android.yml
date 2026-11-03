@@ -29,10 +29,10 @@ jobs:
     - name: Run musikr unit tests
       run: ./gradlew :musikr:testDebugUnitTest --no-daemon
       continue-on-error: true
-    - name: Build debug APK with Gradle
-      run: ./gradlew app:packageDebug
-    - name: Upload debug APK artifact
+    - name: Build arm64 canary APK with Gradle
+      run: ./gradlew app:packageCanary
+    - name: Upload canary APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Auxio_Canary
-        path: ./app/build/outputs/apk/debug/app-debug.apk
+        name: Auxio_Canary_arm64
+        path: ./app/build/outputs/apk/canary/app-canary.apk
