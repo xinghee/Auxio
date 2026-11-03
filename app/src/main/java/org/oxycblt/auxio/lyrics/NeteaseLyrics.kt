@@ -53,7 +53,7 @@ internal class NeteaseLyrics {
             // Prefer a candidate whose length is close to the file; fall back to the top hit.
             val target = durationMs / 1000
             val picked =
-                songs.filter { target > 0 && abs(it.durationSec - target) <= 8 }
+                songs.filter { target > 0 && abs(it.durationSec - target) <= 8L }
                     .minByOrNull { abs(it.durationSec - target) }
                     ?: songs.first()
             val lrc = lyric(picked.id) ?: return@withContext null
@@ -99,7 +99,7 @@ internal class NeteaseLyrics {
                     id = id,
                     title = song.optString("name"),
                     artist = artistNames,
-                    durationSec = song.optLong("duration") / 1000,
+                    durationSec = (song.optLong("duration") / 1000).toInt(),
                 )
             }
         } catch (e: Exception) {
