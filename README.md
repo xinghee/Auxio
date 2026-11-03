@@ -1,191 +1,110 @@
 <p align="center"><img src="fastlane/metadata/android/en-US/images/icon.png" width="150"></p>
-<h1 align="center"><b>Auxio</b></h1>
-<h4 align="center">A simple, rational music player for Android.</h4>
+<h1 align="center"><b>Auxio · 中文修复版</b></h1>
+<h4 align="center">A simple, rational music player for Android —— 顺手修好了中文标签乱码。</h4>
 <p align="center">
-    <a href="https://github.com/oxygencobalt/Auxio/releases/tag/v4.1.5">
-        <img alt="Latest Version" src="https://img.shields.io/static/v1?label=tag&message=v4.1.5&color=64B5F6&style=flat">
+    <a href="https://github.com/xinghee/Auxio/releases/latest">
+        <img alt="Latest Version" src="https://img.shields.io/github/v/release/xinghee/Auxio?include_prereleases&style=flat&color=64B5F6">
     </a>
-    <a href="https://github.com/oxygencobalt/Auxio/releases/">
-        <img alt="Releases" src="https://img.shields.io/github/downloads/OxygenCobalt/Auxio/total.svg?color=4B95DE&style=flat">
+    <a href="https://github.com/xinghee/Auxio/releases">
+        <img alt="Downloads" src="https://img.shields.io/github/downloads/xinghee/Auxio/total.svg?color=4B95DE&style=flat">
     </a>
     <a href="https://www.gnu.org/licenses/gpl-3.0">
         <img src="https://img.shields.io/badge/license-GPL%20v3-2B6DBE.svg?style=flat">
     </a>
     <img alt="Minimum SDK Version" src="https://img.shields.io/badge/API-24%2B-1450A8?style=flat">
 </p>
-<h4 align="center"><a href="/CHANGELOG.md">Changelog</a> | <a href="https://github.com/OxygenCobalt/Auxio/wiki">Wiki</a> | <a href="https://github.com/OxygenCobalt/Auxio#Donate">Donate</a></h4>
-<p align="center">
-    <a href="https://f-droid.org/app/org.oxycblt.auxio"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" width="250"></a>
-    <a href="https://accrescent.app/app/org.oxycblt.auxio">
-        <img alt="Get it on Accrescent" src="https://accrescent.app/badges/get-it-on.png" width="250">
-    </a>
-</p>
-<p align="center">
-    <a href="https://hosted.weblate.org/engage/auxio/"><img height=64 src="https://hosted.weblate.org/widgets/auxio/-/strings/287x66-grey.png" alt="Translation status" /></a>
-</p>
 
-## About
+## 这个仓库是什么
 
-Auxio is a local music player with a fast, reliable UI/UX without the many useless features present in other music players. Built off of modern media playback libraries, Auxio has superior library support and listening quality compared to other apps that use outdated Android functionality. In short, **It plays music.**
+[Auxio](https://github.com/OxygenCobalt/Auxio) 的个人分支。**只做一件事：修正中文 ID3 标签乱码**，其余代码、界面、功能都跟上游保持一致。
 
-**The default branch is the development version of the repository. For a stable version, see the master branch.**
+如果你有一批老 MP3，歌曲名显示成 `ÊÅÈ¥ÈÕ×Ó`、`ÕâÊÇ¸èÇú` 这种鬼东西，这里就是解药。
 
-## Screenshots
+## 乱码是怎么来的
 
-<p align="center">
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot0.png" width=250>
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot1.png" width=250>
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot2.png" width=250>
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot3.png" width=250>
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot4.png" width=250>
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot5.png" width=250>
-</p>
+Auxio 4.0 起改用自带 TagLib 解析标签，不再依赖系统的 MediaStore。而早期中文打标工具（千千静听、酷狗那一代）写 ID3v2 时，`encoding` 字节声明的是 `ISO-8859-1`，实际塞进去的却是 **GBK 字节**。
 
+TagLib 严格照声明用 Latin-1 解码，于是「逝去日子」的 GBK 字节 `CA C5 C8 A5 C8 D5 D7 D3` 被一个字节一个字符地读成了 `ÊÅÈ¥ÈÕ×Ó`。MediaStore 时代有系统兜底，所以升级到 4.x 才暴露出来。
 
-## Features
+好在 Latin-1 是**单射**（0x00–0xFF 一一映射到 U+0000–U+00FF），原字节一个没丢，可以完整还原后重新解码。
 
-- Playback based on [Media3 ExoPlayer](https://developer.android.com/guide/topics/media/exoplayer)
-- Snappy UI derived from the latest Material Design guidelines
-- Opinionated UX that prioritizes ease of use over edge cases
-- Customizable behavior
-- Support for disc numbers, multiple artists, release types,
-precise/original dates, sort tags, and more
-- Advanced artist system that unifies artists and album artists
-- SD Card-aware folder management
-- Reliable playlisting functionality
-- Playback state persistence
-- Android Auto support
-- Automatic gapless playback
-- Full ReplayGain support (On MP3, FLAC, OGG, OPUS, and MP4 files)
-- External equalizer support (ex. Wavelet)
-- Edge-to-edge
-- Embedded covers support
-- Search functionality
-- Headset autoplay
-- Stylish widgets that automatically adapt to their size
-- Completely private and offline
-- No rounded album covers (if you want them)
+## 修复内容
 
-## Permissions
+| 位置 | 改动 |
+|---|---|
+| `musikr/.../util/EncodingFix.kt` | 新增 `String.fixLegacyEncoding()`：还原原始字节，先试严格 UTF-8，再试 GB18030 |
+| `musikr/.../metadata/NativeTagMap.kt` | 在 `addID` / `addCustom` / `addCombined` 三处调用（id3v2、xiph、mp4 三种标签的唯一汇聚点） |
+| `.github/workflows/android.yml` | 修掉 `branches: []` 导致 CI 永不触发的问题，改为监听 `dev` 并支持手动触发 |
 
-- Storage (`READ_MEDIA_AUDIO`, `READ_EXTERNAL_STORAGE`) to read and play your music files
-- Services (`FOREGROUND_SERVICE`, `WAKE_LOCK`) to keep the music playing in the background
-- Notifications (`POST_NOTIFICATION`) to indicate ongoing playback and music loading
+三道保护，避免误伤本来正常的文件：
 
-## Donate
+1. 已经含 U+00FF 以上字符的直接放行（正确的中文、日文标签不受影响）
+2. 高位字节必须占一半以上 —— `Müller`、`Café` 这类西文名不会被当成 GBK 拆字
+3. 解码结果必须含 CJK 汉字，解出乱符号就原样返回
 
-You can support Auxio's development through [my Github Sponsors page](https://github.com/sponsors/OxygenCobalt). Get the ability to prioritize features and have your profile added to the README, Release Changelogs, and even the app itself!
+## 下载
 
-<h3 align="center">Legendary supporters:</h3>
-<p align="center">
-    <a href="https://github.com/bkkellyh"><img src="https://avatars.githubusercontent.com/u/248118457?v=4" width=250 /></a> 
-    <a href="ttps://github.com/gruntstumper"><img src="https://avatars.githubusercontent.com/u/308816080?v=4" width=125 /></a> 
-</p>
-<h3 align="center">
-    <a href="https://github.com/bkkellyh">@bkkellyh</a> - <i>$500!</i>, <a href="https://github.com/gruntstumper">@gruntstumper</a> - $100
-</h3>
+到 [Releases](https://github.com/xinghee/Auxio/releases) 下载 `Auxio_v*-cjk*_debug.apk`。
 
-<hr />
+- 包名是 `org.oxycblt.auxio.debug`，**可以和官方正式版并存**，不会覆盖，也不共用媒体库缓存
+- debug 签名，安装时需要允许「安装未知来源应用」
+- 首次打开会重新扫描媒体库，中文歌名即刻生效
 
-<p align="center"><b>$8/month supporters:</b></p>
+**如果个别歌曲还是乱码**：设置 → 清除该应用数据 → 重新扫描。缓存以 `uri + 文件修改时间` 为键，文件没变就会命中旧缓存。
 
-<p align="center">
-    <a href="https://github.com/uku3lig"><img src="https://avatars.githubusercontent.com/u/61147779?v=4" width=50 /></a>
-</p>
-<p align="center">
-    And **1** Private Sponsor!
-</p>
-
-## Building
-
-Auxio relies on a patched version of Media3 that enables some extra playback features, alongside taglib for metadata
-parsing. This adds some caveats to the build process:
-1. `cmake` and `ninja-build` must be installed before building the project.
-2. The project uses submodules, so when cloning initially, use `git clone --recurse-submodules` to properly
-download the external code.
-3. You are **unable** to build this project on windows, as the custom Media3 build runs shell scripts that
-will only work on unix-based systems.
-
-### Set up Android Studio
-
-#### Install Android Studio.
+## 与上游同步
 
 ```bash
-pkg -S android-studio
+git remote add upstream https://github.com/OxygenCobalt/Auxio.git
+git fetch upstream
+git rebase upstream/dev
 ```
 
-#### Configuring Android Studio:
+改动只集中在 `NativeTagMap.kt`（3 行）和一个新增文件，冲突面很小。
 
-- Be sure to have NDK tools, version 28.2.13676358. You can search it on Languages & Frameworks > Android SDK.
-- Install Java-21 with your system package manager
+## 自己编译
 
-    ```bash
-    sudo pkg -S jdk21-openjdk
-    ```
-    Additionally: Set java version to jdk21-openjdk
-
-- Run ./gradlew assembleDebug
-
-#### Connecting to your Android Device
-
-You can connect your Mobile Phone through USB to run the app. 
-
-1. **Enable Developer Options on your phone**
-   - Go to **Settings > About phone**  
-   - Tap **Build number** 7 times until you see *"You are now a developer!"*
-
-2. **Enable USB debugging**
-   - Go to **Settings > Developer options**  
-   - Turn on **USB debugging**
-
-3. **Connect your phone to the computer**
-   - Use a USB cable  
-   - On your phone, accept the *Allow USB debugging?* prompt
-
-4. **Verify that your device is detected**
-   ```bash
-   cd ~/Android/Sdk/platform-tools
-   ./adb devices
-   ```
-
-Android Studio also offers virtual devices that come with this pre-configured.
-
-#### Install the app on the Android Phone
-To install the app on your physical device or emulator, run this command:
+上游要求 `cmake` + `ninja-build` + NDK `28.2.13676358` + JDK 21，并且**不能在 Windows 上构建**（Media3 的自定义构建跑的是 Unix shell 脚本）。所以这个分支走 GitHub Actions：
 
 ```bash
-./gradlew installDebug
+git push origin dev          # 自动编译，产物在 Actions 的 Artifacts 里
 ```
 
-Auxio should now appear in the list of Apps
-
-#### Load music to Auxio (Optional)
-
-You can move files from your pc to your device / emulator to test the music using this command:
+也可以在 Actions 页面手动 `Run workflow`。想本地跑单测：
 
 ```bash
-cd ~/Android/Sdk/platform-tools
-./adb push ~Music/ /sdcard/Music
+./gradlew :musikr:testDebugUnitTest
 ```
 
-## Contributing
+## 屏幕截图
 
-Auxio accepts most contributions as long as they follow the [Contribution Guidelines](/.github/CONTRIBUTING.md).
+<p align="center">
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot0.png" width=200>
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot1.png" width=200>
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot2.png" width=200>
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/shot3.png" width=200>
+</p>
 
-However, feature additions and major UI changes are less likely to be accepted. See
-[Why Are These Features Missing?](https://github.com/OxygenCobalt/Auxio/wiki/Why-Are-These-Features-Missing%3F)
-for more information.
+## 权限
 
+- 存储（`READ_MEDIA_AUDIO` / `READ_EXTERNAL_STORAGE`）：读取并播放你的音乐文件
+- 服务（`FOREGROUND_SERVICE` / `WAKE_LOCK`）：后台持续播放
+- 通知（`POST_NOTIFICATIONS`）：显示播放状态与媒体库扫描进度
 
+Auxio **没有网络权限**，完全离线、无广告、无账号。
+
+## 致谢与上游
+
+全部功劳归 [OxygenCobalt](https://github.com/OxygenCobalt) 与 Auxio 贡献者。这个分支只加了几行编码修复，没有上游就没有它。
+
+- 上游仓库：https://github.com/OxygenCobalt/Auxio
+- 上游 Wiki：https://github.com/OxygenCobalt/Auxio/wiki
+- 英文原版说明：[README.upstream.md](README.upstream.md)
 
 ## License
 
-[![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
+[![GNU GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-Auxio is Free Software: You can use, study share and improve it at your
-will. Specifically you can redistribute and/or modify it under the terms of the
-[GNU General Public License](https://www.gnu.org/licenses/gpl.html) as
-published by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+Auxio is Free Software: you can use, study, share and improve it at your will. Specifically you can redistribute and/or modify it under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl.html) as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-More information can be found [here](https://github.com/OxygenCobalt/Auxio/wiki/Licenses).
+本分支同样以 GPL-3.0 发布，源码改动公开可见。
