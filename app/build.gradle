@@ -8,6 +8,10 @@ plugins {
     id "com.google.devtools.ksp"
 }
 
+// 打包哪些 ABI。默认只出 arm64（省约 5.6 MB，覆盖 2017 年之后的绝大多数手机）；
+// CI 传 -PauxioAbi=all 时出全 ABI 的通用包，给模拟器和老设备用。
+def targetAbi = (project.findProperty("auxioAbi") ?: "arm64-v8a").toString()
+
 android {
     // Auxio implicitly depends on the native modules, explicitly specify it
     // here so the libraries are still stripped.
@@ -27,10 +31,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // 自编译变体只出 arm64，去掉 x86/x86_64/armeabi-v7a 可省约 5.6 MB。
-        // 覆盖 2017 年之后的绝大多数设备。
-        ndk {
-            abiFilters "arm64-v8a"
+        // 默认只出 arm64，去掉 x86/x86_64/armeabi-v7a 可省约 5.6 MB，覆盖 2017 年之后的
+        // 绝大多数手机。传 -PauxioAbi=all 出全 ABI 的通用包（模拟器、老设备用）。
+        if (targetAbi != "all") {
+            ndk {
+                abiFilters targetAbi
+            }
         }
     }
 
@@ -68,7 +74,8 @@ android {
         canary {
             initWith release
             applicationIdSuffix ".debug"
-            versionNameSuffix "-arm64"
+            // 让包名后缀跟着 ABI 走，免得两个包在设置里分不清谁是谁。
+            versionNameSuffix(targetAbi == "all" ? "-universal" : "-arm64")
             signingConfig signingConfigs.debug
             matchingFallbacks = ["release"]
         }

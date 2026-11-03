@@ -30,9 +30,15 @@ jobs:
       run: ./gradlew :musikr:testDebugUnitTest --no-daemon
       continue-on-error: true
     - name: Build arm64 canary APK with Gradle
-      run: ./gradlew app:packageCanary
+      run: ./gradlew app:packageCanary -PauxioAbi=arm64-v8a
+    - name: Stage arm64 APK
+      run: mkdir -p dist && cp app/build/outputs/apk/canary/app-canary.apk dist/Auxio_arm64.apk
+    - name: Build universal canary APK with Gradle
+      run: ./gradlew app:packageCanary -PauxioAbi=all
+    - name: Stage universal APK
+      run: cp app/build/outputs/apk/canary/app-canary.apk dist/Auxio_universal.apk
     - name: Upload canary APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Auxio_Canary_arm64
-        path: ./app/build/outputs/apk/canary/app-canary.apk
+        name: Auxio_Canary
+        path: dist/*.apk
