@@ -1,6 +1,6 @@
 <p align="center"><img src="fastlane/metadata/android/en-US/images/icon.png" width="150"></p>
 <h1 align="center"><b>Auxio · 中文修复版</b></h1>
-<h4 align="center">A simple, rational music player for Android —— 顺手修好了中文标签乱码。</h4>
+<h4 align="center">A simple, rational music player for Android —— 顺手修好了中文标签乱码，还加了歌词。</h4>
 <p align="center">
     <a href="https://github.com/xinghee/Auxio/releases/latest">
         <img alt="Latest Version" src="https://img.shields.io/github/v/release/xinghee/Auxio?include_prereleases&style=flat&color=64B5F6">
@@ -16,7 +16,13 @@
 
 ## 这个仓库是什么
 
-[Auxio](https://github.com/OxygenCobalt/Auxio) 的个人分支。**只做一件事：修正中文 ID3 标签乱码**，其余代码、界面、功能都跟上游保持一致。
+[Auxio](https://github.com/OxygenCobalt/Auxio) 的个人分支，在上游基础上只动了三处：
+
+1. **修正中文 ID3 标签乱码** —— `ÊÅÈ¥ÈÕ×Ó` 显示成「逝去日子」，读的时候翻译，不改文件
+2. **应用内修复标签编码** —— 把改错的编码直接写回文件，车机、foobar 也跟着正常
+3. **歌词** —— 扫本地 `.lrc` 自动绑定，可选在线补全，播放时能看
+
+其余代码、界面、功能都跟上游保持一致。
 
 如果你有一批老 MP3，歌曲名显示成 `ÊÅÈ¥ÈÕ×Ó`、`ÕâÊÇ¸èÇú` 这种鬼东西，这里就是解药。
 
@@ -149,8 +155,42 @@ git rebase upstream/dev
 - 存储（`READ_MEDIA_AUDIO` / `READ_EXTERNAL_STORAGE`）：读取并播放你的音乐文件
 - 服务（`FOREGROUND_SERVICE` / `WAKE_LOCK`）：后台持续播放
 - 通知（`POST_NOTIFICATIONS`）：显示播放状态与媒体库扫描进度
+- 网络（`INTERNET`）：**仅用于可选的在线歌词补全**，默认关闭
 
-Auxio **没有网络权限**，完全离线、无广告、无账号。
+上游 Auxio 没有网络权限、完全离线。这个分支加了 `INTERNET`，因为在线歌词必须有它——但也只做这一件事：只有你在「歌词」页面手动打开开关并点「在线补全」时才会发请求，抓到的歌词会缓存到本地，之后离线可看。播放过程本身从不联网。
+
+## 歌词
+
+**绑定**：设置 → **内容** → 「音乐」分组 → **歌词**
+
+扫描「音乐目录」下所有子目录里的 `.lrc`（包括 `Music/Musiclrc` 这种独立歌词文件夹），跟库里的歌逐首匹配，如实报告绑上了多少首。
+
+| 层 | 依据 |
+|---|---|
+| 1 | `[ti:]` 归一化后完全相等 |
+| 2 | 从标题提取 `《》` → `[]` → `【】` 的内容后相等 |
+| 3 | 字符二元组（Dice 系数）相似度 ≥ 0.82 |
+
+`《》` 优先级最高是因为中文歌名习惯加书名号；`[]` 次之，通常装的是曲名；`【】` 最后，经常装的是作品名（比如「灌篮高手」）。视频站常见的 `AI翻唱`、`中文填词`、`1080P` 这类尾巴会被剥掉。
+
+**在线补全**：页面顶部开关，打开后对未绑定的歌逐首搜索，取回同步歌词并缓存到 `filesDir/lyrics/`。多结果时按文件时长挑版本（差 8 秒内优先）。
+
+**播放时看**：播放面板 **长按歌名** → 全屏歌词。当前行跟随播放位置高亮并自动滚动，双语（`原文^翻译`）分两行显示，点任意一行跳到该时间点。
+
+新增文件：
+
+| 位置 | 作用 |
+|---|---|
+| `musikr/.../lyrics/LrcParser.kt` | 解析 LRC：多时间戳、`[mm:ss:xx]`、全局 offset、`原文^翻译` |
+| `musikr/.../lyrics/LyricsTitle.kt` | 标题归一化、候选提取、Dice 相似度 |
+| `app/.../lyrics/LyricsScanner.kt` | 递归扫 `.lrc`，UTF-8 / GB18030 自动识别 |
+| `app/.../lyrics/LyricsMatcher.kt` | 三层匹配 |
+| `app/.../lyrics/LyricsStore.kt` | 绑定表持久化（`filesDir/lyrics-index.json`） |
+| `app/.../lyrics/NeteaseLyrics.kt` | 在线搜索与歌词抓取 |
+| `app/.../lyrics/LyricsFragment.kt` | 扫描/绑定报告页 |
+| `app/.../lyrics/LyricsPanelFragment.kt` | 全屏歌词页 |
+
+**限制**：只处理文本 `.lrc` 与在线源；FLAC/Ogg 内嵌歌词、`.hmrc` 这类加密格式不在范围内。
 
 ## 致谢与上游
 
