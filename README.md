@@ -35,6 +35,7 @@ TagLib 严格照声明用 Latin-1 解码，于是「逝去日子」的 GBK 字�
 | `musikr/.../util/EncodingFix.kt` | 新增 `String.fixLegacyEncoding()`：还原原始字节，先试严格 UTF-8，再试 GB18030 |
 | `musikr/.../metadata/NativeTagMap.kt` | 在 `addID` / `addCustom` / `addCombined` 三处调用（id3v2、xiph、mp4 三种标签的唯一汇聚点） |
 | `.github/workflows/android.yml` | 修掉 `branches: []` 导致 CI 永不触发的问题，改为监听 `dev` 并支持手动触发 |
+| `app/build.gradle` | 新增 `canary` 变体：走 release 的 R8 + 资源裁剪，保留 `.debug` 包名，仅 arm64 |
 
 三道保护，避免误伤本来正常的文件：
 
@@ -44,10 +45,15 @@ TagLib 严格照声明用 Latin-1 解码，于是「逝去日子」的 GBK 字�
 
 ## 下载
 
-到 [Releases](https://github.com/xinghee/Auxio/releases) 下载 `Auxio_v*-cjk*_debug.apk`。
+到 [Releases](https://github.com/xinghee/Auxio/releases) 取包，两个版本二选一：
+
+| 文件 | 大小 | 说明 |
+|---|---|---|
+| `Auxio_v*-cjk*_arm64.apk` | **6.4 MB** | **推荐**。R8 裁剪 + 仅 arm64-v8a |
+| `Auxio_v*-cjk*_debug.apk` | 23.5 MB | 未裁剪的 debug 包，全 ABI，留着给 x86 模拟器 |
 
 - 包名是 `org.oxycblt.auxio.debug`，**可以和官方正式版并存**，不会覆盖，也不共用媒体库缓存
-- debug 签名，安装时需要允许「安装未知来源应用」
+- 签名是 CI 每次现生成的 debug keystore：两个包之间、不同次构建之间签名都不同，**换包前先卸载**
 - 首次打开会重新扫描媒体库，中文歌名即刻生效
 
 **如果个别歌曲还是乱码**：设置 → 清除该应用数据 → 重新扫描。缓存以 `uri + 文件修改时间` 为键，文件没变就会命中旧缓存。
@@ -64,17 +70,18 @@ git rebase upstream/dev
 
 ## 自己编译
 
-上游要求 `cmake` + `ninja-build` + NDK `28.2.13676358` + JDK 21，并且**不能在 Windows 上构建**（Media3 的自定义构建跑的是 Unix shell 脚本）。所以这个分支走 GitHub Actions：
+上游要求 `cmake` + `ninja-build` + NDK `28.2.13676358` + JDK 21，并且**不能在 Windows 上构建**（Media3 的自定义构建跑的是 Unix shell 脚本）。所以这个分支走 GitHub Actions，产出 `canary` 变体（release 的 R8 配置 + `.debug` 包名 + 仅 arm64）：
 
-```bash
-git push origin dev          # 自动编译，产物在 Actions 的 Artifacts 里
-```
+- 到 Actions 页面点 **Run workflow**（fork 仓库的 workflow 不会随 push 自动跑，实测 push 无反应）
+- 产物在对应 run 的 **Artifacts** 里：`Auxio_Canary_arm64`
 
-也可以在 Actions 页面手动 `Run workflow`。想本地跑单测：
+想本地跑单测（不产出 APK）：
 
 ```bash
 ./gradlew :musikr:testDebugUnitTest
 ```
+
+体积参考：debug 变体全 ABI 是 23.5 MB（dex 未裁剪 12 MB + 4 个 ABI 的 .so 7.8 MB），canary 只留 arm64 并走 R8 后是 6.4 MB。
 
 ## 屏幕截图
 
