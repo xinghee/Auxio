@@ -31,6 +31,11 @@
             app:summary="@string/set_tag_repair_desc"
             app:title="@string/set_tag_repair" />
 
+        <Preference
+            app:key="@string/set_key_lyrics"
+            app:summary="@string/set_lyrics_desc"
+            app:title="@string/set_lyrics" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/set_images">

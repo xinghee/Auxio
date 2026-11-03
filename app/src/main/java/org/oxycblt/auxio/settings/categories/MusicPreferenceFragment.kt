@@ -80,5 +80,12 @@ class MusicPreferenceFragment : BasePreferenceFragment(R.xml.preferences_music) 
                 true
             }
         }
+        if (preference.key == getString(R.string.set_key_lyrics)) {
+            L.d("Configuring lyrics setting")
+            preference.setOnPreferenceClickListener {
+                findNavController().navigateSafe(MusicPreferenceFragmentDirections.lyrics())
+                true
+            }
+        }
     }
 }

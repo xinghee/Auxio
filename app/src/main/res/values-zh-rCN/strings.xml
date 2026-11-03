@@ -216,7 +216,7 @@
     <string name="set_rescan_desc">清除标签缓存并完全重新加载音乐库（更慢，但更完整）</string>
     <string name="fmt_selected">选中了 %d 项</string>
     <string name="set_play_song_from_genre">按流派播放</string>
-    <string name="lbl_wiki">Wiki</string>
+    <string name="lbl_wiki">说明文档</string>
     <string name="fmt_list">%1$s, %2$s</string>
     <string name="lbl_reset">重置</string>
     <string name="set_behavior">行为</string>
@@ -369,4 +369,27 @@
     <string name="repair_failed_count">%1$d 个失败</string>
     <string name="repair_rescan">重新扫描</string>
     <string name="repair_entry_fix">%1$s  %2$s → %3$s</string>
+
+    <!-- 歌词 -->
+    <string name="lyrics_title">歌词</string>
+    <string name="set_key_lyrics">lyrics</string>
+    <string name="set_lyrics">歌词</string>
+    <string name="set_lyrics_desc">为歌曲绑定本地 .lrc 歌词，可选用在线补全</string>
+    <string name="lyrics_idle">准备扫描</string>
+    <string name="lyrics_scanning">正在扫描…已检查 %1$d 个文件，找到 %2$d 个歌词</string>
+    <string name="lyrics_scanned">找到 %1$d 个歌词文件，%2$d/%3$d 首已绑定</string>
+    <string name="lyrics_fetching">正在在线获取 %1$d/%2$d</string>
+    <string name="lyrics_fetched">在线补全了 %1$d 首</string>
+    <string name="lyrics_rescan">重新扫描</string>
+    <string name="lyrics_fetch">在线补全</string>
+    <string name="lyrics_online_toggle">允许联网获取歌词</string>
+    <string name="lyrics_online_off">请先打开「允许联网获取歌词」</string>
+    <string name="lyrics_nothing_missing">所有歌曲都已有歌词</string>
+    <string name="lyrics_no_library">音乐库还没加载完，稍后再试</string>
+    <string name="lyrics_no_folders">还没有添加音乐目录</string>
+    <string name="lyrics_scan_failed">扫描失败</string>
+    <string name="lyrics_match_none">未找到歌词</string>
+    <string name="lyrics_match_ok">✓ %1$s  %2$s</string>
+    <string name="lyrics_match_fuzzy">？ %1$s（相似度 %2$d%%）</string>
+    <string name="lyrics_preview_empty">这首没有歌词内容</string>
 </resources>

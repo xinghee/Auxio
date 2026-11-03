@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <org.oxycblt.auxio.ui.CoordinatorAppBarLayout
+        android:id="@+id/lyrics_appbar"
+        style="@style/Widget.Auxio.AppBarLayout"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/lyrics_recycler">
+
+        <org.oxycblt.auxio.ui.AuxioToolbar
+            android:id="@+id/lyrics_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_back_24"
+            app:title="@string/lyrics_title" />
+
+    </org.oxycblt.auxio.ui.CoordinatorAppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <TextView
+            android:id="@+id/lyrics_status"
+            style="@style/Widget.Auxio.TextView.Item.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            android:paddingEnd="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_small"
+            tools:text="扫描到 1455 个歌词文件，已绑定 34 首" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/lyrics_online"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingEnd="@dimen/spacing_medium"
+            android:text="@string/lyrics_online_toggle"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <org.oxycblt.auxio.list.recycler.AuxioRecyclerView
+                android:id="@+id/lyrics_recycler"
+                style="@style/Widget.Auxio.RecyclerView.Linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_lyrics_match" />
+
+            <TextView
+                android:id="@+id/lyrics_empty"
+                style="@style/Widget.Auxio.TextView.Item.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/spacing_large"
+                android:visibility="gone"
+                tools:text="没有找到可用的歌词" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/lyrics_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_medium">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/lyrics_rescan"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:text="@string/lyrics_rescan" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/lyrics_fetch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lyrics_fetch" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

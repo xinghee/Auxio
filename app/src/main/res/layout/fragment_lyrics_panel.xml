@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <org.oxycblt.auxio.ui.CoordinatorAppBarLayout
+        android:id="@+id/lyric_panel_appbar"
+        style="@style/Widget.Auxio.AppBarLayout"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/lyric_panel_recycler">
+
+        <org.oxycblt.auxio.ui.AuxioToolbar
+            android:id="@+id/lyric_panel_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_back_24"
+            app:title="@string/lyrics_title" />
+
+    </org.oxycblt.auxio.ui.CoordinatorAppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <org.oxycblt.auxio.list.recycler.AuxioRecyclerView
+            android:id="@+id/lyric_panel_recycler"
+            style="@style/Widget.Auxio.RecyclerView.Linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="120dp"
+            android:paddingBottom="160dp"
+            tools:listitem="@layout/item_lrc_line" />
+
+        <TextView
+            android:id="@+id/lyric_panel_empty"
+            style="@style/Widget.Auxio.TextView.Item.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/spacing_large"
+            android:visibility="gone"
+            tools:text="这首还没有歌词" />
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

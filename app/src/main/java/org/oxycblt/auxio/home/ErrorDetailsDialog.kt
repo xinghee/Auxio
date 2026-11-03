@@ -87,8 +87,6 @@ class ErrorDetailsDialog : ViewBindingMaterialDialogFragment<DialogErrorDetailsB
 
     private companion object {
         /** The URL to the bug report issue form */
-        const val LINK_ISSUES =
-            "https://github.com/OxygenCobalt/Auxio/issues/new" +
-                "?assignees=OxygenCobalt&labels=bug&projects=&template=bug-crash-report.yml"
+        const val LINK_ISSUES = "https://github.com/xinghee/Auxio/issues/new"
     }
 }

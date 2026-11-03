@@ -34,8 +34,10 @@ import androidx.core.view.updatePadding
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
+import org.oxycblt.auxio.MainFragmentDirections
 import org.oxycblt.auxio.R
 import org.oxycblt.auxio.databinding.FragmentPlaybackPanelBinding
 import org.oxycblt.auxio.detail.DetailViewModel
@@ -53,6 +55,7 @@ import org.oxycblt.auxio.playback.ui.swiper.UserAwarePagerCallback
 import org.oxycblt.auxio.ui.ViewBindingFragment
 import org.oxycblt.auxio.util.collectImmediately
 import org.oxycblt.auxio.util.dampen
+import org.oxycblt.auxio.util.navigateSafe
 import org.oxycblt.auxio.util.recycler
 import org.oxycblt.auxio.util.showToast
 import org.oxycblt.auxio.util.smoothScrollByPageTo
@@ -139,6 +142,12 @@ class PlaybackPanelFragment :
         binding.playbackSong.apply {
             isSelected = true
             setOnClickListener { navigateToCurrentSong() }
+            // Long-press is the least intrusive place to hang lyrics: it adds no toolbar button
+            // and does not disturb the covers pager.
+            setOnLongClickListener {
+                findNavController().navigateSafe(MainFragmentDirections.showLyrics())
+                true
+            }
         }
         binding.playbackArtist.apply {
             isSelected = true

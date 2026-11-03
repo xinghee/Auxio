@@ -169,7 +169,7 @@
     <string name="lbl_about">About</string>
     <string name="lbl_version">Version</string>
     <string name="lbl_code">Source code</string>
-    <string name="lbl_wiki">Wiki</string>
+    <string name="lbl_wiki">Readme</string>
     <string name="lbl_licenses">Licenses</string>
     <string name="lbl_library_counts">Library statistics</string>
 
@@ -520,4 +520,27 @@
     <string name="repair_failed_count">%1$d failed</string>
     <string name="repair_rescan">Scan again</string>
     <string name="repair_entry_fix">%1$s  %2$s → %3$s</string>
+
+    <!-- Lyrics -->
+    <string name="lyrics_title">Lyrics</string>
+    <string name="set_key_lyrics">lyrics</string>
+    <string name="set_lyrics">Lyrics</string>
+    <string name="set_lyrics_desc">Bind local .lrc files to songs, with optional online lookup</string>
+    <string name="lyrics_idle">Ready to scan</string>
+    <string name="lyrics_scanning">Scanning… %1$d files checked, %2$d lyric files found</string>
+    <string name="lyrics_scanned">Found %1$d lyric files, bound %2$d of %3$d songs</string>
+    <string name="lyrics_fetching">Fetching online %1$d/%2$d</string>
+    <string name="lyrics_fetched">Fetched lyrics for %1$d songs</string>
+    <string name="lyrics_rescan">Rescan</string>
+    <string name="lyrics_fetch">Fetch online</string>
+    <string name="lyrics_online_toggle">Allow fetching lyrics online</string>
+    <string name="lyrics_online_off">Turn on online lyrics first</string>
+    <string name="lyrics_nothing_missing">Every song already has lyrics</string>
+    <string name="lyrics_no_library">The library is still loading, try again in a moment</string>
+    <string name="lyrics_no_folders">No music folders have been added yet</string>
+    <string name="lyrics_scan_failed">Scan failed</string>
+    <string name="lyrics_match_none">No lyrics found</string>
+    <string name="lyrics_match_ok">✓ %1$s  %2$s</string>
+    <string name="lyrics_match_fuzzy">? %1$s (%2$d%% similar)</string>
+    <string name="lyrics_preview_empty">This song has no lyric text</string>
 </resources>
