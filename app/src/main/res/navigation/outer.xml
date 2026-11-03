@@ -63,7 +63,16 @@
         <action
             android:id="@+id/separators_settings"
             app:destination="@id/separators_dialog" />
+        <action
+            android:id="@+id/tag_repair"
+            app:destination="@id/tag_repair_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/tag_repair_fragment"
+        android:name="org.oxycblt.auxio.repair.TagRepairFragment"
+        android:label="tag_repair_fragment"
+        tools:layout="@layout/fragment_tag_repair" />
 
     <fragment
         android:id="@+id/audio_preferences_fragment"

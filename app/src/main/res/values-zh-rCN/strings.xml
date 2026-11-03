@@ -346,4 +346,27 @@
     <string name="set_saf_multithread_desc">更快但在一些设备上失败</string>
     <string name="err_share_too_large">过大无法分享</string>
     <string name="err_share_failed">无法分享这个</string>
+
+    <!-- 标签编码修复 -->
+    <string name="repair_title">修复标签编码</string>
+    <string name="set_key_tag_repair">tag_repair</string>
+    <string name="set_tag_repair">修复标签编码</string>
+    <string name="set_tag_repair_desc">把被当作 Latin-1 保存的 GBK 文本改写成正确编码</string>
+    <string name="repair_idle">正在扫描音乐目录…</string>
+    <string name="repair_scanning">正在扫描…已检查 %1$d 个文件</string>
+    <string name="repair_scanned_none">已检查 %1$d 个文件，没有需要修复的标签</string>
+    <string name="repair_scanned_found">已检查 %1$d 个文件，%2$d 个需要修复</string>
+    <string name="repair_no_locations">还没有添加音乐目录</string>
+    <string name="repair_applying">正在修复 %1$d/%2$d</string>
+    <string name="repair_apply">修复 %1$d 处</string>
+    <string name="repair_apply_none">修复</string>
+    <string name="repair_undo">撤销上次修复</string>
+    <string name="repair_undo_confirm">要还原上次修复过的文件标签吗？</string>
+    <string name="repair_undone">已还原 %1$d 个文件</string>
+    <string name="repair_done">已修复 %1$d 个文件</string>
+    <string name="repair_done_with_failures">已修复 %1$d 个文件，%2$d 个失败</string>
+    <string name="repair_failed">没有文件修复成功</string>
+    <string name="repair_failed_count">%1$d 个失败</string>
+    <string name="repair_rescan">重新扫描</string>
+    <string name="repair_entry_fix">%1$s  %2$s → %3$s</string>
 </resources>

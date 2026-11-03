@@ -95,6 +95,10 @@ internal class TagDirectoryScanner(private val context: Context) {
                 val childId = it.getString(0) ?: continue
                 val name = it.getString(1) ?: continue
                 val mime = it.getString(2)
+                // Hidden folders hold thumbnails and trash, never music.
+                if (name.startsWith(".")) {
+                    continue
+                }
                 if (mime == DocumentsContract.Document.MIME_TYPE_DIR) {
                     walk(treeUri, childId, "$folder/$name", results, counter, onProgress)
                     continue

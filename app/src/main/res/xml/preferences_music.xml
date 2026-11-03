@@ -26,6 +26,11 @@
             app:summary="@string/set_hide_collaborators_desc"
             app:title="@string/set_hide_collaborators" />
 
+        <Preference
+            app:key="@string/set_key_tag_repair"
+            app:summary="@string/set_tag_repair_desc"
+            app:title="@string/set_tag_repair" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/set_images">

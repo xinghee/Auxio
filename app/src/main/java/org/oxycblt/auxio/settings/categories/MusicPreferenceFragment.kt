@@ -73,5 +73,12 @@ class MusicPreferenceFragment : BasePreferenceFragment(R.xml.preferences_music) 
                 true
             }
         }
+        if (preference.key == getString(R.string.set_key_tag_repair)) {
+            L.d("Configuring tag repair setting")
+            preference.setOnPreferenceClickListener {
+                findNavController().navigateSafe(MusicPreferenceFragmentDirections.tagRepair())
+                true
+            }
+        }
     }
 }

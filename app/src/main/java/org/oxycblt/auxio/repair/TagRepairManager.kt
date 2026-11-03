@@ -19,6 +19,7 @@
 package org.oxycblt.auxio.repair
 
 import android.content.Context
+import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -67,6 +68,64 @@ internal class TagRepairManager(context: Context) {
             RepairOutcome(records.size, failed)
         }
 
+    /**
+     * Restore the original tag of every file in the last repair run.
+     *
+     * The audio payload was never touched, so only the tag block has to be put back: the current
+     * file is split at the end of its tag and the backed-up block is spliced in front of the
+     * remaining bytes.
+     */
+    suspend fun undo(
+        onProgress: (done: Int, total: Int) -> Unit = { _, _ -> },
+    ): RepairOutcome =
+        withContext(Dispatchers.IO) {
+            val batch = backups.lastBatch()
+            val failed = mutableListOf<String>()
+            var restored = 0
+            for ((index, record) in batch.withIndex()) {
+                currentCoroutineContext().ensureActive()
+                if (restoreOne(record)) {
+                    restored++
+                } else {
+                    failed += record.name
+                }
+                onProgress(index + 1, batch.size)
+            }
+            if (batch.isNotEmpty()) {
+                backups.dropLastBatch()
+            }
+            RepairOutcome(restored, failed)
+        }
+
+    private fun restoreOne(record: RepairRecord): Boolean {
+        val tagBytes = backups.loadTag(record) ?: return false
+        val uri = Uri.parse(record.uri)
+        val current = writer.readAll(uri) ?: return false
+        val currentTagLength = tagLengthOf(current)
+        if (currentTagLength <= 0 || currentTagLength > current.size) return false
+
+        val restoredBytes = tagBytes + current.copyOfRange(currentTagLength, current.size)
+        return writer.rewrite(uri, current, restoredBytes)
+    }
+
+    /** Length of the ID3v2 block at the start of [bytes], or 0 when there is none. */
+    private fun tagLengthOf(bytes: ByteArray): Int {
+        if (bytes.size < 10) return 0
+        if (bytes[0] != 'I'.code.toByte() ||
+            bytes[1] != 'D'.code.toByte() ||
+            bytes[2] != '3'.code.toByte()) {
+            return 0
+        }
+        val flags = bytes[5].toInt() and 0xFF
+        val size =
+            ((bytes[6].toInt() and 0x7F) shl 21) or
+                ((bytes[7].toInt() and 0x7F) shl 14) or
+                ((bytes[8].toInt() and 0x7F) shl 7) or
+                (bytes[9].toInt() and 0x7F)
+        val footer = if (flags and 0x10 != 0) 10 else 0
+        return 10 + size + footer
+    }
+
     /** @return true when the file was rewritten and recorded. */
     private fun repairOne(item: RepairCandidate, records: MutableList<RepairRecord>): Boolean {
         val original = writer.readAll(item.uri) ?: return false
@@ -91,6 +150,9 @@ internal class TagRepairManager(context: Context) {
     }
 
     fun lastBackupBatch(): List<RepairRecord> = backups.lastBatch()
+
+    /** Whether there is a repair run that can still be undone. */
+    fun hasBackup(): Boolean = backups.lastBatch().isNotEmpty()
 
     fun dropLastBackupBatch() = backups.dropLastBatch()
 }

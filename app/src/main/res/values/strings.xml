@@ -497,4 +497,27 @@
         <item quantity="one">%d second</item>
         <item quantity="other">%d seconds</item>
     </plurals>
+
+    <!-- Tag encoding repair -->
+    <string name="repair_title">Repair tag encoding</string>
+    <string name="set_key_tag_repair">tag_repair</string>
+    <string name="set_tag_repair">Repair tag encoding</string>
+    <string name="set_tag_repair_desc">Rewrite MP3 tags whose GBK text was saved as Latin-1</string>
+    <string name="repair_idle">Scanning your music folders…</string>
+    <string name="repair_scanning">Scanning… %1$d files checked</string>
+    <string name="repair_scanned_none">Checked %1$d files, nothing to repair</string>
+    <string name="repair_scanned_found">Checked %1$d files, %2$d need repair</string>
+    <string name="repair_no_locations">No music folders are registered yet</string>
+    <string name="repair_applying">Repairing %1$d/%2$d</string>
+    <string name="repair_apply">Repair %1$d</string>
+    <string name="repair_apply_none">Repair</string>
+    <string name="repair_undo">Undo last repair</string>
+    <string name="repair_undo_confirm">Restore the original tags of the last repair run?</string>
+    <string name="repair_undone">Restored %1$d files</string>
+    <string name="repair_done">Repaired %1$d files</string>
+    <string name="repair_done_with_failures">Repaired %1$d files, %2$d failed</string>
+    <string name="repair_failed">Nothing could be repaired</string>
+    <string name="repair_failed_count">%1$d failed</string>
+    <string name="repair_rescan">Scan again</string>
+    <string name="repair_entry_fix">%1$s  %2$s → %3$s</string>
 </resources>
