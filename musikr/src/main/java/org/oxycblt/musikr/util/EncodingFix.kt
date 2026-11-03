@@ -40,19 +40,30 @@ private const val CJK_LAST = 0x9FFF
  *
  * @return The repaired [String], or this [String] when no repair was applicable.
  */
-internal fun String.fixLegacyEncoding(): String {
+internal fun String.fixLegacyEncoding(): String = tryRepairLegacyEncoding() ?: this
+
+/**
+ * Same detection as [fixLegacyEncoding], but tells the caller whether a repair actually applies.
+ *
+ * Used by the tag rewriter, which needs to know which frames are worth rewriting rather than just
+ * getting a corrected string back.
+ *
+ * @return The repaired text, or null when this [String] does not look like mislabelled double-byte
+ *   text.
+ */
+internal fun String.tryRepairLegacyEncoding(): String? {
     // Anything above U+00FF means TagLib already produced real Unicode (UTF-8/UTF-16 tags).
     if (any { it.code > 0xFF }) {
-        return this
+        return null
     }
     if (isEmpty()) {
-        return this
+        return null
     }
 
     val raw = ByteArray(length) { index -> get(index).code.toByte() }
     // Pure ASCII, or a Western name with a single accented letter ("Café", "Müller").
     if (raw.count { (it.toInt() and 0xFF) >= 0x80 } < 2) {
-        return this
+        return null
     }
 
     // UTF-8 stored under a Latin-1 declaration is also common in the wild.
@@ -64,7 +75,7 @@ internal fun String.fixLegacyEncoding(): String {
     // Note this must not require high bytes to dominate: album names like
     // "BEYOND - 25◌◌◌◌" are mostly ASCII and would otherwise be skipped.
     if (!hasEvenHighRuns(raw)) {
-        return this
+        return null
     }
     // GB18030 is a superset of GBK, which is what Chinese taggers actually wrote.
     decodeStrict(raw, GB18030)
@@ -75,7 +86,7 @@ internal fun String.fixLegacyEncoding(): String {
             return it
         }
 
-    return this
+    return null
 }
 
 /**
