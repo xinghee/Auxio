@@ -390,6 +390,6 @@
     <string name="lyrics_scan_failed">扫描失败</string>
     <string name="lyrics_match_none">未找到歌词</string>
     <string name="lyrics_match_ok">✓ %1$s  %2$s</string>
-    <string name="lyrics_match_fuzzy">？ %1$s（相似度 %2$d%%）</string>
+    <string name="lyrics_match_fuzzy">可能 %1$s（相似度 %2$d%%）</string>
     <string name="lyrics_preview_empty">这首没有歌词内容</string>
 </resources>
