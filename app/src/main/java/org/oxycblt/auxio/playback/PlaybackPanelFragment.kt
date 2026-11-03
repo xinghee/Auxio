@@ -34,14 +34,13 @@ import androidx.core.view.updatePadding
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
-import org.oxycblt.auxio.MainFragmentDirections
 import org.oxycblt.auxio.R
 import org.oxycblt.auxio.databinding.FragmentPlaybackPanelBinding
 import org.oxycblt.auxio.detail.DetailViewModel
 import org.oxycblt.auxio.list.ListViewModel
+import org.oxycblt.auxio.lyrics.LyricsPanelFragment
 import org.oxycblt.auxio.music.resolve
 import org.oxycblt.auxio.music.resolveNames
 import org.oxycblt.auxio.playback.queue.QueueViewModel
@@ -55,7 +54,6 @@ import org.oxycblt.auxio.playback.ui.swiper.UserAwarePagerCallback
 import org.oxycblt.auxio.ui.ViewBindingFragment
 import org.oxycblt.auxio.util.collectImmediately
 import org.oxycblt.auxio.util.dampen
-import org.oxycblt.auxio.util.navigateSafe
 import org.oxycblt.auxio.util.recycler
 import org.oxycblt.auxio.util.showToast
 import org.oxycblt.auxio.util.smoothScrollByPageTo
@@ -142,13 +140,14 @@ class PlaybackPanelFragment :
         binding.playbackSong.apply {
             isSelected = true
             setOnClickListener { navigateToCurrentSong() }
-            // Long-press is the least intrusive place to hang lyrics: it adds no toolbar button
-            // and does not disturb the covers pager.
             setOnLongClickListener {
-                findNavController().navigateSafe(MainFragmentDirections.showLyrics())
+                openLyrics()
                 true
             }
         }
+        // Explicit entry next to the overflow button: a long-press is not discoverable.
+        // The button does not exist in the short-screen layout, hence the safe call.
+        binding.playbackLyrics?.setOnClickListener { openLyrics() }
         binding.playbackArtist.apply {
             isSelected = true
             setOnClickListener { navigateToCurrentArtist() }
@@ -386,6 +385,31 @@ class PlaybackPanelFragment :
                 binding.playbackPager.setCurrentItem(command.scroll, false)
             }
         }
+    }
+
+    /**
+     * Shows the lyric view on top of everything.
+     *
+     * Deliberately bypasses the navigation graph: the playback panel is a nested fragment declared
+     * in the main layout, and navigating from it to a graph destination did nothing (the resolved
+     * controller did not know the destination, and the failure was swallowed).
+     */
+    private fun openLyrics() {
+        val manager = activity?.supportFragmentManager ?: return
+        if (manager.findFragmentByTag("lyrics_panel") != null) {
+            return
+        }
+        manager
+            .beginTransaction()
+            .setCustomAnimations(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out,
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            .add(android.R.id.content, LyricsPanelFragment(), "lyrics_panel")
+            .addToBackStack("lyrics_panel")
+            .commit()
     }
 
     private fun navigateToCurrentSong() {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Page outline -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M6.25,3.75h8.5l3,3v13.5h-11.5z"
+        android:strokeColor="@android:color/white"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.6" />
+
+    <!-- Folded corner -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M14.75,3.75v3h3"
+        android:strokeColor="@android:color/white"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.6" />
+
+    <!-- Lyric lines -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M9,10.5h6M9,14h6M9,17.5h3.5"
+        android:strokeColor="@android:color/white"
+        android:strokeLineCap="round"
+        android:strokeWidth="1.6" />
+
+</vector>

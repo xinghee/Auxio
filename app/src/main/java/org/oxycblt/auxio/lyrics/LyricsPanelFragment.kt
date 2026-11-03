@@ -21,8 +21,8 @@ package org.oxycblt.auxio.lyrics
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,6 +33,7 @@ import org.oxycblt.auxio.playback.state.PlaybackStateManager
 import org.oxycblt.auxio.playback.state.Progression
 import org.oxycblt.auxio.playback.state.QueueChange
 import org.oxycblt.auxio.ui.ViewBindingFragment
+import org.oxycblt.auxio.util.systemBarInsetsCompat
 import org.oxycblt.musikr.MusicParent
 import org.oxycblt.musikr.Song
 import org.oxycblt.musikr.lyrics.LrcLine
@@ -83,10 +84,17 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
 
     override fun onBindingCreated(binding: FragmentLyricsPanelBinding, savedInstanceState: Bundle?) {
         binding.lyricPanelToolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            parentFragmentManager.popBackStack()
         }
         binding.lyricPanelRecycler.adapter = adapter
         repository = LyricsRepository(requireContext())
+
+        // Added directly to the activity content view, so nothing else pads the status bar.
+        binding.root.setOnApplyWindowInsetsListener { view, insets ->
+            val bars = insets.systemBarInsetsCompat
+            binding.lyricPanelAppbar.updatePadding(top = bars.top)
+            insets
+        }
     }
 
     override fun onStart() {

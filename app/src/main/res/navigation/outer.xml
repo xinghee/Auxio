@@ -16,9 +16,6 @@
         <action
             android:id="@+id/about"
             app:destination="@id/about_fragment" />
-        <action
-            android:id="@+id/show_lyrics"
-            app:destination="@id/lyrics_panel_fragment" />
     </fragment>
     <fragment
         android:id="@+id/root_preferences_fragment"
@@ -127,9 +124,4 @@
         android:label="dialog_about"
         tools:layout="@layout/fragment_about" />
 
-    <fragment
-        android:id="@+id/lyrics_panel_fragment"
-        android:name="org.oxycblt.auxio.lyrics.LyricsPanelFragment"
-        android:label="lyrics_panel_fragment"
-        tools:layout="@layout/fragment_lyrics_panel" />
 </navigation>
