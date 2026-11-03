@@ -26,6 +26,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.oxycblt.auxio.databinding.FragmentLyricsPanelBinding
 import org.oxycblt.auxio.music.resolve
@@ -55,9 +58,18 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
     private var loadedSongUri: String? = null
     private var currentIndex = -1
 
+    /**
+     * Latest playback snapshot. [Progression] only records the position it was created at, so the
+     * current time has to be derived from it on a timer; waiting for the next callback leaves the
+     * highlight stuck where it was when the view opened.
+     */
+    private var progression: Progression? = null
+    private var ticker: Job? = null
+
     private val listener =
         object : PlaybackStateManager.Listener {
             override fun onProgressionChanged(progression: Progression) {
+                this@LyricsPanelFragment.progression = progression
                 applyPosition(progression.calculateElapsedPositionMs())
             }
 
@@ -101,9 +113,22 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         super.onStart()
         playbackManager.addListener(listener)
         reload()
+        ticker?.cancel()
+        ticker =
+            viewLifecycleOwner.lifecycleScope.launch {
+                while (isActive) {
+                    delay(200)
+                    val snapshot = progression ?: continue
+                    if (snapshot.isPlaying) {
+                        applyPosition(snapshot.calculateElapsedPositionMs())
+                    }
+                }
+            }
     }
 
     override fun onStop() {
+        ticker?.cancel()
+        ticker = null
         playbackManager.removeListener(listener)
         super.onStop()
     }
@@ -142,7 +167,10 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
             }
             binding.lyricPanelEmpty.isVisible = false
             lines = lrc.lines
-            adapter.submitList(lines)
+            // submitList diffs asynchronously, so scrolling before the commit lands does nothing.
+            adapter.submitList(lines) {
+                progression?.let { applyPosition(it.calculateElapsedPositionMs()) }
+            }
             L.d("Loaded ${lines.size} lyric lines")
         }
     }
@@ -162,8 +190,10 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         adapter.setCurrent(index)
 
         val binding = binding ?: return
-        val layoutManager = binding.lyricPanelRecycler.layoutManager as? LinearLayoutManager ?: return
-        layoutManager.scrollToPositionWithOffset(index, binding.lyricPanelRecycler.height / 3)
+        val recycler = binding.lyricPanelRecycler
+        val layoutManager = recycler.layoutManager as? LinearLayoutManager ?: return
+        // Height is still 0 on the first pass, which would scroll to the wrong offset.
+        recycler.post { layoutManager.scrollToPositionWithOffset(index, recycler.height / 3) }
     }
 
     override fun onDestroyBinding(binding: FragmentLyricsPanelBinding) {
