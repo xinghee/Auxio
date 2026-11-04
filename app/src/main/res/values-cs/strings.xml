@@ -293,11 +293,8 @@
     <string name="lng_playlist_exported">Seznam skladeb exportován</string>
     <string name="lbl_import_playlist">Importovat seznam skladeb</string>
     <string name="lbl_replaygain_track">Úprava ReplayGain u stopy</string>
-    <string name="lbl_donate">Přispět</string>
-    <string name="lbl_supporters">Podporovatelé</string>
     <string name="lbl_author">Autor</string>
     <string name="lbl_replaygain_album">Úprava ReplayGain u alba</string>
-    <string name="lng_supporters_promo">Přispějte na projekt a uvidíte zde své jméno!</string>
     <string name="set_remember_pause_desc">Zůstat ve stavu přehrávání/pozastavení při přeskakování nebo úpravě fronty</string>
     <string name="set_remember_pause">Zapamatovat pozastavení</string>
     <string name="set_replay_gain_mode_off">Vypnuto</string>
@@ -306,7 +303,6 @@
     <string name="lbl_more">Více</string>
     <string name="lbl_feedback">Zpětná vazba</string>
     <string name="lbl_github">Vytvořit problém na GitHubu</string>
-    <string name="lbl_email">Poslat e-mail</string>
     <string name="def_album">Neznámé album</string>
     <string name="cnt_mp4">MPEG-4 obsahující %s</string>
     <string name="cdc_alac">Apple Lossless Audio Codec (ALAC)</string>

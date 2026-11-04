@@ -116,9 +116,6 @@
     <string name="lng_playlist_added">La til i speleliste</string>
     <string name="desc_album_cover">Albumomslag for %s</string>
     <string name="lbl_github">Oppretta ei sak på GitHub</string>
-    <string name="lbl_email">Send ein e-post</string>
-    <string name="lbl_donate">Doner</string>
-    <string name="lbl_supporters">Støttespelarar</string>
     <string name="lng_widget">Sjå og styra musikkavspeling</string>
     <string name="lng_observing">Held auga med brigdingar i musikksamlinga di…</string>
     <string name="lng_queue_added">La til i køen</string>
@@ -126,7 +123,6 @@
     <string name="lng_playlist_renamed">Namn på speleliste brigdt</string>
     <string name="lng_playlist_exported">Speleliste eksportert</string>
     <string name="lng_playlist_deleted">Spelelista vart teken bort</string>
-    <string name="lng_supporters_promo">Doner til prosjektet, så skal namnet ditt leggjast til her!</string>
     <string name="lng_search_library">Søk i gjenom samlinga di…</string>
     <string name="set_ui">Utsjånad</string>
     <string name="set_theme">Drakt</string>

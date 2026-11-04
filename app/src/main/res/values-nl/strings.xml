@@ -278,9 +278,6 @@
     <string name="lbl_replaygain_track">ReplayGain spoor aanpassing</string>
     <string name="lbl_replaygain_album">ReplayGain album aanpassing</string>
     <string name="lbl_author">Auteur</string>
-    <string name="lbl_donate">Doneer</string>
-    <string name="lbl_supporters">Supporters</string>
-    <string name="lng_supporters_promo">Doneer aan het project om uw naam hier te krijgen!</string>
     <string name="set_square_covers">Forceer vierkante albumhoezen</string>
     <string name="set_square_covers_desc">Snijd alle albumhoezen bij tot een verhouding van 1:1</string>
     <string name="lbl_error_info">Fout informatie</string>
@@ -313,7 +310,6 @@
     <string name="lng_empty_playlists">Je afspeellijsten zullen hier worden weergegeven.</string>
     <string name="set_with_hidden">Inclusief verborgen bestanden</string>
     <string name="lbl_github">Meld een probleem met GitHub</string>
-    <string name="lbl_email">Stuur een e-mail</string>
     <string name="lng_empty_albums">Je albums zullen hier worden weergegeven.</string>
     <string name="lng_empty_artists">Je artiesten zullen hier worden weergegeven.</string>
     <string name="lng_empty_genres">Je genres zullen hier worden weergegeven.</string>

@@ -282,9 +282,6 @@
     <string name="lbl_replaygain_track">ReplayGain Track módosítása</string>
     <string name="lbl_replaygain_album">ReplayGain Album módosítása</string>
     <string name="lbl_author">Szerző</string>
-    <string name="lbl_donate">Adományozás</string>
-    <string name="lbl_supporters">Támogatók</string>
-    <string name="lng_supporters_promo">Adományozzon a projektnek, hogy itt legyen a neved!</string>
     <string name="set_remember_pause">Szünet megjegyzése</string>
     <string name="set_remember_pause_desc">A lejátszás/szünet megmarad a várólista kihagyásakor vagy szerkesztésekor</string>
     <string name="lbl_path">Cím</string>
@@ -307,7 +304,6 @@
     <string name="set_with_hidden">Rejtett fájlok megjelenítése</string>
     <string name="set_with_hidden_desc">Rejtett audió fájlok megjelenítése (pl. .cache)</string>
     <string name="lbl_more">Több</string>
-    <string name="lbl_email">Küldj egy e-mailt</string>
     <string name="lng_empty_albums">Itt fognak megjelenni az albumaid.</string>
     <string name="lng_empty_artists">Itt fognak megjelenni az előadóid.</string>
     <string name="lng_empty_genres">Itt fognak megjelenni a műfajaid.</string>

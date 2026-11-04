@@ -284,9 +284,6 @@
     <string name="lbl_imported_playlist">재생 목록을 가져왔습니다.</string>
     <string name="lbl_author">개발자</string>
     <string name="lbl_import_playlist">재생 목록 가져오기</string>
-    <string name="lbl_donate">후원</string>
-    <string name="lbl_supporters">서포터</string>
-    <string name="lng_supporters_promo">여기에 이름을 올리고 싶으시면 프로젝트를 후원해 주세요!</string>
     <string name="lng_playlist_imported">재생 목록을 가져왔습니다.</string>
     <string name="lng_playlist_exported">재생 목록을 내보냈습니다.</string>
     <string name="lbl_path_style_absolute">절대</string>
@@ -306,7 +303,6 @@
     <string name="lbl_start_playback">재생 시작</string>
     <string name="lng_tasker_start">이전에 저장된 상태에 따라 Auxio를 시작합니다. 저장된 상태가 없으면 모든 곡을 무작위 재생합니다. 재생은 즉시 시작됩니다. \n \n경고: 이 서비스는 주의하여 사용하세요. 서비스를 닫은 뒤 다시 사용하려고 할 경우 앱이 충돌할 수 있습니다.</string>
     <string name="lbl_more">더 보기</string>
-    <string name="lbl_email">전자우편을 전송합니다</string>
     <string name="lbl_github">깃허브에 문제를 제기합니다</string>
     <string name="lbl_feedback">응답</string>
     <string name="lng_play_next">다음 재생 곡</string>

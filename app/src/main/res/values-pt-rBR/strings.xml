@@ -268,9 +268,6 @@
     <string name="err_export_failed">Não foi possível exportar a playlist para este arquivo</string>
     <string name="lbl_demos">Demos</string>
     <string name="lbl_author">Autor</string>
-    <string name="lbl_donate">Doar</string>
-    <string name="lbl_supporters">Apoiadores</string>
-    <string name="lng_supporters_promo">Doe para o projeto para ter o seu nome adicionado aqui!</string>
     <string name="set_remember_pause">Lembrar pausa</string>
     <string name="set_remember_pause_desc">Manter reproduzindo/pausado ao pular ou editar a fila</string>
     <string name="lbl_empty_playlist">Playlist vazia</string>
@@ -301,7 +298,6 @@
     <string name="lbl_start_playback">Iniciar a reprodução</string>
     <string name="lng_tasker_start">Inicia o Auxio usando o estado salvo anteriormente. Se nenhum estado salvo estiver disponível, todas as músicas serão reproduzidas aleatoriamente. \n \nAVISO: Tenha cuidado ao controlar este serviço. Se você fechá-lo e então tentar usá-lo novamente, a execução do aplicativo pode ser interrompida.</string>
     <string name="lbl_more">Mais</string>
-    <string name="lbl_email">Envie um e-mail</string>
     <string name="lbl_github">Crie uma issue no GitHub</string>
     <string name="cnt_mp4">MPEG-4 contendo %s</string>
     <string name="cdc_alac">Apple Lossless Audio Codec (ALAC)</string>

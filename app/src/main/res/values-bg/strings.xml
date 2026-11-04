@@ -111,8 +111,6 @@
     <string name="lbl_report">Докладвай</string>
     <string name="lbl_author">Автор</string>
     <string name="lbl_author_name">Alexander Capehart</string>
-    <string name="lbl_donate">Дарете</string>
-    <string name="lbl_supporters">Поддръжници</string>
     <string name="lng_widget">Преглед и контрол на възпроизвеждането на музика</string>
     <string name="lng_indexing">Вашата музикална библиотека се зарежда…</string>
     <string name="lng_observing">Наблюдение на вашата музикална библиотека за промени…</string>
@@ -183,7 +181,6 @@
     <string name="set_replay_gain">Нормализация на звука</string>
     <string name="set_replay_gain_mode">ReplayGain стратегия</string>
     <string name="set_replay_gain_mode_off">Изключено</string>
-    <string name="lng_supporters_promo">Дарете за проекта, за да бъде добавено името ви тук!</string>
     <string name="lng_search_library">Търсене във вашата библиотека…</string>
     <string name="set_bar_action">Персонализирано действие на лентата за възпроизвеждане</string>
     <string name="set_play_song_none">Изпълни от показания елемент</string>
@@ -300,7 +297,6 @@
     <string name="lbl_more">Още</string>
     <string name="lbl_feedback">Обратна връзка</string>
     <string name="lbl_github">Създайте проблем в GitHub</string>
-    <string name="lbl_email">Изпратете имейл</string>
     <string name="cnt_mp4">MPEG-4, съдържащ %s</string>
     <string name="lng_empty_songs">Вашите песни ще се показват тук.</string>
     <string name="lng_empty_albums">Вашите албуми ще се показват тук.</string>

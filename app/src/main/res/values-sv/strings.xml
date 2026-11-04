@@ -274,7 +274,6 @@
     <string name="lbl_author">Utvecklare</string>
     <string name="lng_playlist_imported">Spellistan har importerats</string>
     <string name="lng_playlist_exported">Spellistan har exporterats</string>
-    <string name="lng_supporters_promo">Bidra till projektet så läggs ditt namn till här!</string>
     <string name="set_remember_pause">Kom ihåg pausat läge</string>
     <string name="set_remember_pause_desc">Fortsätt uppspelning/pausat läge vid spårbyte och listredigering</string>
     <string name="err_export_failed">Kunde inte importera spellistan till denna fil</string>
@@ -284,8 +283,6 @@
     <string name="lbl_path">Sökväg</string>
     <string name="lbl_replaygain_track">ReplayGain Spårbaserad Volymjustering</string>
     <string name="lbl_replaygain_album">ReplayGain Albumbaserad Volymjustering</string>
-    <string name="lbl_donate">Donera</string>
-    <string name="lbl_supporters">Bidragsgivare</string>
     <string name="lbl_import">Importera</string>
     <string name="lbl_export">Exportera</string>
     <string name="lbl_export_playlist">Exportera spellista</string>
@@ -299,7 +296,6 @@
     <string name="lbl_more">Mer</string>
     <string name="def_album">Okänt album</string>
     <string name="cdc_unknown">Okänt</string>
-    <string name="lbl_email">Skicka ett mejl</string>
     <string name="lbl_feedback">Feedback</string>
     <string name="lng_empty_albums">Dina album kommer visas här.</string>
     <string name="lng_empty_songs">Dina låtar kommer visas här.</string>

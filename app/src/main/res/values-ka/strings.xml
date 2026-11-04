@@ -72,8 +72,6 @@
     <string name="lbl_author">ავტორი</string>
     <string name="lbl_error_info">ინფორმაცია</string>
     <string name="lbl_feedback">უკუკავშირი</string>
-    <string name="lbl_email">ელექტრონული შეტყობინების გაგზავნა</string>
-    <string name="lbl_donate">დონაცია</string>
     <string name="lng_indexing">სიმღერების ჩატვირთვა…</string>
     <string name="lng_queue_added">დაამატე რიგში</string>
     <string name="lng_playlist_imported">დასაკრავი სია იმპორტირებულია</string>
@@ -106,7 +104,6 @@
     <string name="fmt_lib_album_count">ალბომების რაოდენობა: %d</string>
     <string name="fmt_lib_artist_count">არტისტების რაოდენობა: %d</string>
     <string name="lbl_queue_add">დაამატე რიგში</string>
-    <string name="lbl_supporters">გულშემატკივრები</string>
     <string name="lng_empty_genres">თქვენი ჟანრები აქ გამოჩნდება.</string>
     <string name="fmt_lib_total_duration">სრული ხანგრძლივობა: %s</string>
     <string name="fmt_lib_genre_count">ჟანრების რაოდენობა: %d</string>

@@ -286,10 +286,7 @@
     <string name="lbl_demos">Demos</string>
     <string name="lbl_replaygain_track">Ajuste de faixa ReplayGain</string>
     <string name="lbl_author">Autor</string>
-    <string name="lbl_donate">Doar</string>
-    <string name="lbl_supporters">Apoiadores</string>
     <string name="lng_playlist_exported">Lista de reprodução exportada</string>
-    <string name="lng_supporters_promo">Doe para o projeto para ter o seu nome adicionado aqui!</string>
     <string name="set_remember_pause">Lembrar pausa</string>
     <string name="set_remember_pause_desc">Continuar a reproduzir/pausado quando ao pular ou editar a fila</string>
     <string name="lbl_empty_playlist">Lista de reprodução vazia</string>
@@ -321,7 +318,6 @@
     <string name="lng_empty_genres">Os seus gêneros aparecerão aqui.</string>
     <string name="lng_empty_playlists">As suas listas de reprodução aparecerão aqui.</string>
     <string name="set_with_hidden_desc">Ignorar ficheiros e pastas que estão ocultos (por exemplo, .cache)</string>
-    <string name="lbl_email">Envie um e-mail</string>
     <string name="lbl_github">Crie um problema no GitHub</string>
     <string name="lng_file_picker">Carrega músicas a partir das pastas que selecionou. Mais lento, porém mais confiável. Requer a app do gestão de ficheiros original instalado.</string>
     <string name="lng_system_database">Carrega as músicas que o Android deteta. Mais rápido, porém menos confiável. Não suporta a recursos que dependem do sistema de ficheiros, como cover.jpg.</string>

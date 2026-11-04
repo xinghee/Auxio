@@ -115,9 +115,6 @@
     <string name="lbl_author_name">Alexander Capehart</string>
     <string name="lbl_feedback">Maklum balas</string>
     <string name="lbl_github">Laporkan masalah di GitHub</string>
-    <string name="lbl_email">Hantar emel</string>
-    <string name="lbl_donate">Derma</string>
-    <string name="lbl_supporters">Penyokong</string>
     <string name="lng_widget">Lihat dan kawal main balik muzik</string>
     <string name="lng_indexing">Memuatkan pustaka muzik anda…</string>
     <string name="lng_observing">Memeriksa perubahan pada pustaka muzik anda…</string>
@@ -129,7 +126,6 @@
     <string name="lng_playlist_exported">Senarai main dieksport</string>
     <string name="lng_playlist_deleted">Senarai main dipadam</string>
     <string name="lng_playlist_added">Ditambah ke senarai main</string>
-    <string name="lng_supporters_promo">Sumbang kepada projek ini untuk meletakkan nama anda di sini!</string>
     <string name="lng_search_library">Cari pustaka anda…</string>
     <string name="lng_tasker_start">Memulakan Auxio menggunakan keadaan yang disimpan sebelum ini. Jika tiada keadaan yang disimpan, semua lagu akan dimainkan secara rawak. Main balik akan bermula serta-merta.\n\nAMARAN: Berhati-hati mengawal perkhidmatan ini, jika anda menutupnya dan cuba menggunakannya semula, anda mungkin akan menyebabkan apl ini ranap.</string>
     <string name="lng_empty_songs">Lagu anda akan ditunjukkan di sini.</string>

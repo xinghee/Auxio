@@ -141,7 +141,6 @@
     <string name="set_keep_shuffle">تذكر خاصية الخلط</string>
     <string name="lng_playlist_exported">تم تصدير قائمة التشغيل</string>
     <string name="lng_playlist_deleted">تم حذف قائمة التشغيل</string>
-    <string name="lng_supporters_promo">تبرع إلى المشروع لإضافة اسمك هنا!</string>
     <string name="set_lib_tabs">علامات تبويب المكتبة</string>
     <string name="set_lib_tabs_desc">تغيير مرئية وترتيب علامات تبويب المكتبة</string>
     <string name="set_bar_action">إجراء شريط التشغيل المخصص</string>
@@ -276,8 +275,6 @@
     <string name="lbl_selection">تحديد</string>
     <string name="lbl_feedback">الانطباعات</string>
     <string name="lbl_github">افتح مشكلة على GitHub</string>
-    <string name="lbl_email">إرسل بريد إلكتروني</string>
-    <string name="lbl_supporters">المؤيدون</string>
     <string name="lbl_more">المزيد</string>
     <string name="lbl_path_style_relative">نسبي</string>
     <string name="lbl_path_style_absolute">مطلق</string>
@@ -302,7 +299,6 @@
     <string name="lbl_replaygain_album">تعديل الألبوم ReplayGain</string>
     <string name="lbl_replaygain_track">تعديل مسار ReplayGain</string>
     <string name="lbl_author_name">ألكساندر كيبهارت</string>
-    <string name="lbl_donate">تبرّع</string>
     <string name="lbl_author">المؤلف</string>
     <string name="lbl_import_playlist">استورد قائمة التشغيل</string>
     <string name="lbl_path">المسار</string>

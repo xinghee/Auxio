@@ -48,8 +48,6 @@
     <string name="lbl_copied">Cadwyd</string>
     <string name="lbl_report">Adrodd</string>
     <string name="lbl_author">Awdur</string>
-    <string name="lbl_donate">Cyfrannu</string>
-    <string name="lbl_supporters">Cyfranwyr</string>
     <string name="lng_widget">Gweld a rheoli chwarae cerddoriaeth</string>
     <string name="lng_indexing">Yn llwytho eich llyfrgell cerddoriaeth…</string>
     <string name="lng_observing">Yn monitro eich llyfrgell cerddoriaeth am newidiadau…</string>
@@ -60,7 +58,6 @@
     <string name="lng_playlist_exported">Rhestr chwarae wedi\'i allforio</string>
     <string name="lng_playlist_deleted">Rhestr chwarae wedi\'i ddileu</string>
     <string name="lng_playlist_added">Wedi\'i ychwanegu i\'r rhestr chwarae</string>
-    <string name="lng_supporters_promo">Cyfrannwch i\'r prosiect er mwyn ychwanegu eich enw yma!</string>
     <string name="lng_search_library">Chwilio eich llyfrgell…</string>
     <string name="set_lib_tabs_desc">Newid amlygrwydd a threfn tabiau llyfrgell</string>
     <string name="set_play_in_parent_with">Wrth chwarae o fanylion yr eitem</string>
@@ -311,7 +308,6 @@
     <string name="set_audio_desc">Ffurfweddu sain ac ymarweddiad chwarae</string>
     <string name="lbl_feedback">Adborth</string>
     <string name="lbl_github">Creu issue ar GitHub</string>
-    <string name="lbl_email">Anfon ebost</string>
     <string name="lbl_more">Mwy</string>
     <string name="def_album">Albwm anhysbys</string>
     <string name="cdc_unknown">Anhysbys</string>

@@ -284,9 +284,6 @@
     <string name="lbl_replaygain_track">„ReplayGain“ takelio priderinimas</string>
     <string name="lbl_replaygain_album">„ReplayGain“ albumo priderinimas</string>
     <string name="lbl_author">Autorius</string>
-    <string name="lbl_donate">Aukoti</string>
-    <string name="lbl_supporters">Palaikytojai</string>
-    <string name="lng_supporters_promo">Paaukokite projektui, kad jūsų vardas būtų pridėtas čia!</string>
     <string name="err_import_failed">Nepavyksta importuoti grojaraščio iš šio failo.</string>
     <string name="lbl_empty_playlist">Tuščias grojaraštis</string>
     <string name="lbl_import_playlist">Importuoti grojaraštį</string>
@@ -313,7 +310,6 @@
     <string name="lng_empty_artists">Čia bus rodomi jūsų atlikėjai.</string>
     <string name="lng_empty_playlists">Čia bus rodomi jūsų grojaraščiai.</string>
     <string name="lng_empty_genres">Čia bus rodomi jūsų žanrai.</string>
-    <string name="lbl_email">Siųsti el. laišką</string>
     <string name="cdc_alac">„Apple“ nenuostolingas garso kodekas (ALAC)</string>
     <string name="cdc_unknown">Nežinomas</string>
     <string name="set_cover_mode_save_space">Išsaugoti vietos</string>

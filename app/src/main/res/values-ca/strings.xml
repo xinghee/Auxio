@@ -115,9 +115,6 @@
     <string name="lbl_author_name">Alexander Capehart</string>
     <string name="lbl_feedback">Comentaris</string>
     <string name="lbl_github">Crea una incidència al GitHub</string>
-    <string name="lbl_email">Envia un correu electrònic</string>
-    <string name="lbl_donate">Fes una donació</string>
-    <string name="lbl_supporters">Mecenes</string>
     <string name="lng_widget">Visualitzeu i controleu la reproducció de música</string>
     <string name="lng_indexing">S\'està carregant la fonoteca…</string>
     <string name="lng_observing">S\'estan supervisant els canvis de la fonoteca…</string>
@@ -130,7 +127,6 @@
     <string name="lng_playlist_deleted">S\'ha suprimit la llista de reproducció</string>
     <string name="lng_playlist_added">S\'ha afegit a la llista de reproducció</string>
     <string name="desc_shuffle">Activa o desactiva el mode aleatori</string>
-    <string name="lng_supporters_promo">Feu una donació al projecte perquè el vostre nom aparegui aquí!</string>
     <string name="lng_search_library">Cerqueu a la fonoteca…</string>
     <string name="lng_tasker_start">Inicia l\'Auxio amb l\'estat desat anteriorment. Si no n\'hi ha cap, es reproduiran totes les cançons aleatòriament. La reproducció començarà immediatament.\n\nAVÍS: Aneu amb compte en controlar aquest servei; si el tanqueu i després proveu de tornar-lo a utilitzar, probablement fareu fallar l\'aplicació.</string>
     <string name="lng_empty_songs">Aquí apareixeran les cançons.</string>

@@ -151,9 +151,6 @@
     <string name="lbl_author_name">அலெக்சாண்டர் கேப்ஆர்ட்</string>
     <string name="lbl_feedback">கருத்து</string>
     <string name="lbl_github">கிதுபில் ஒரு சிக்கலை உருவாக்குங்கள்</string>
-    <string name="lbl_email">மின்னஞ்சல் அனுப்புங்கள்</string>
-    <string name="lbl_donate">நன்கொடை</string>
-    <string name="lbl_supporters">ஆதரவாளர்கள்</string>
     <string name="lng_widget">இசை பின்னணியைக் காணவும் கட்டுப்படுத்தவும்</string>
     <string name="lng_indexing">உங்கள் இசை நூலகத்தை ஏற்றுகிறது…</string>
     <string name="lng_observing">மாற்றங்களுக்காக உங்கள் இசை நூலகத்தை கண்காணித்தல்…</string>
@@ -164,7 +161,6 @@
     <string name="lng_playlist_exported">பிளேலிச்ட் ஏற்றுமதி செய்யப்பட்டது</string>
     <string name="lng_playlist_deleted">பிளேலிச்ட் நீக்கப்பட்டது</string>
     <string name="lng_playlist_added">பிளேலிச்ட்டில் சேர்க்கப்பட்டது</string>
-    <string name="lng_supporters_promo">உங்கள் பெயரை இங்கே சேர்க்க திட்டத்திற்கு நன்கொடை அளிக்கவும்!</string>
     <string name="lng_search_library">உங்கள் நூலகத்தைத் தேடுங்கள்…</string>
     <string name="lng_tasker_start">முன்னர் சேமிக்கப்பட்ட நிலையைப் பயன்படுத்தி ஆக்சியோவைத் தொடங்குகிறது. சேமிக்கப்பட்ட நிலை எதுவும் கிடைக்கவில்லை என்றால், எல்லா பாடல்களும் மாற்றப்படும். பிளேபேக் உடனடியாக தொடங்கும்.\n\n எச்சரிக்கை: இந்த சேவையை கட்டுப்படுத்துவதில் கவனமாக இருங்கள், நீங்கள் அதை மூடிவிட்டு அதை மீண்டும் பயன்படுத்த முயற்சித்தால், நீங்கள் பயன்பாட்டை செயலிழக்கச் செய்வீர்கள்.</string>
     <string name="set_ui_desc">பயன்பாட்டின் கருப்பொருள் மற்றும் வண்ணங்களை மாற்றவும்</string>

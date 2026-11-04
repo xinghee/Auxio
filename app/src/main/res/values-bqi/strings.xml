@@ -77,7 +77,6 @@
     <string name="lbl_error_info">دووسمندیا ختا</string>
     <string name="lbl_copied">لف گیری وابی</string>
     <string name="lbl_author">هؽل کوݩ</string>
-    <string name="lbl_donate">لادراری</string>
     <string name="lbl_filter_all">پوی</string>
     <string name="lbl_track">آرنگ</string>
     <string name="lbl_report">گوزارش</string>
@@ -93,5 +92,4 @@
     <string name="lbl_shuffle_shortcut_long">شیونیڌن پوی</string>
     <string name="lbl_shuffle_shortcut_short">تساڌۊفی</string>
     <string name="lbl_licenses">لایسنس</string>
-    <string name="lbl_supporters">هؽزگرووݩ</string>
 </resources>

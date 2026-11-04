@@ -68,8 +68,6 @@
     <string name="lbl_report">Teata veast</string>
     <string name="lbl_author">Autor</string>
     <string name="lbl_author_name">Arenduse eestvedaja Alexander Capehart</string>
-    <string name="lbl_donate">Toeta arendajat</string>
-    <string name="lbl_supporters">Toetajad</string>
     <string name="lng_indexing">Laadime sinu muusikakogu…</string>
     <string name="lng_observing">Jälgime muudatusi sinu muusikakogus…</string>
     <string name="lng_playlist_created">Esitusloend on loodud</string>
@@ -131,7 +129,6 @@
     <string name="lng_widget">Vaata ja halda muusika esitamist</string>
     <string name="lbl_reset">Lähtesta</string>
     <string name="lng_queue_added">Lisatud esitusjärjekorda</string>
-    <string name="lng_supporters_promo">Kui soovid siin näha oma nime, siis toeta rahaliselt meie arendust!</string>
     <string name="lng_search_library">Otsi oma muusikakogust…</string>
     <string name="set_theme_day">Hele kujundus</string>
     <string name="set_black_mode">Must kujundus</string>
@@ -300,7 +297,6 @@
     <string name="lbl_more">Veel</string>
     <string name="lbl_feedback">Tagasiside</string>
     <string name="lbl_github">Koosta GitHubis veateade või ettepanek</string>
-    <string name="lbl_email">Saada e-kiri</string>
     <string name="def_album">Tundmatu album</string>
     <string name="cnt_mp4">MPEG-4 %s koodekiga</string>
     <string name="cdc_alac">Apple Lossless Audio Codec (ALAC)</string>

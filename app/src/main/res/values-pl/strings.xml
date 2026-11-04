@@ -283,8 +283,6 @@
     <string name="lbl_selection">Zaznaczenie</string>
     <string name="lbl_copied">Skopiowano</string>
     <string name="lbl_author">Autor</string>
-    <string name="lbl_donate">Wspomóż finansowo</string>
-    <string name="lbl_supporters">Wspierający</string>
     <string name="lng_playlist_exported">Wyeksportowano playlistę</string>
     <string name="lbl_empty_playlist">Pusta playlista</string>
     <string name="lbl_import_playlist">Importuj playlistę</string>
@@ -298,13 +296,11 @@
     <string name="err_export_failed">Nie udało się wyeksportować listy odtwarzania do tego pliku</string>
     <string name="lbl_replaygain_track">Dopasowanie głośności utworu (ReplayGain)</string>
     <string name="lbl_replaygain_album">Dopasowanie głośności albumu (ReplayGain)</string>
-    <string name="lng_supporters_promo">Wesprzyj projekt darowizną, aby Twoje imię pojawiło się tutaj!</string>
     <string name="set_remember_pause_desc">Pozostań w trakcie odtwarzania/zatrzymania podczas pomijania lub edytowania kolejki</string>
     <string name="set_remember_pause">Zapamiętaj pauzę</string>
     <string name="lbl_start_playback">Zacznij odtwarzanie</string>
     <string name="err_import_failed">Nie udało się zaimportować listy odtwarzania z tego pliku</string>
     <string name="lbl_windows_paths">Używaj ścieżek kompatybilnych z Windows</string>
-    <string name="lbl_email">Wyślij e-maila</string>
     <string name="lbl_feedback">Informacja zwrotna</string>
     <string name="lbl_github">Zgłoś problem na GitHubie</string>
     <string name="cnt_mp4">MPEG-4 zawierający %s</string>

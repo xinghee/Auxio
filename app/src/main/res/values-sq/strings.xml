@@ -107,8 +107,6 @@
     <string name="lbl_report">Raportoni</string>
     <string name="lbl_author">Autori</string>
     <string name="lbl_author_name">Alexander Capehart</string>
-    <string name="lbl_donate">Dhuroni</string>
-    <string name="lbl_supporters">Mbështetësit</string>
     <string name="lng_widget">Shikoni dhe kontrolloni riprodhimin e muzikës</string>
     <string name="lng_indexing">Biblioteka juaj muzikore po ngarkohet…</string>
     <string name="lng_observing">Duke monitoruar bibliotekën tuaj të muzikës për ndryshime…</string>
@@ -118,7 +116,6 @@
     <string name="lng_playlist_exported">Lista e këngëve e eksportuar</string>
     <string name="lng_playlist_deleted">Lista e muzikës u fshi</string>
     <string name="lng_playlist_added">U shtuar në listën e këngëve</string>
-    <string name="lng_supporters_promo">Dhuroni në projekt për të shtuar emrin tuaj këtu!</string>
     <string name="lng_search_library">Kërkoni në bibliotekën tuaj…</string>
     <string name="lng_queue_added">Shtuar në radhë</string>
     <string name="lbl_sample_rate">Norma e mostrës</string>
@@ -182,7 +179,6 @@
     <string name="set_repeat_pause">Pushoni në përsëritje</string>
     <string name="set_repeat_pause_desc">Pushoni kur një këngë përsëritet</string>
     <string name="lbl_github">Krijo një çështje në GitHub</string>
-    <string name="lbl_email">Dërgo një email</string>
     <string name="lbl_feedback">Përshtypje</string>
     <string name="set_remember_pause">Kujto pushimin</string>
     <string name="set_round_mode_desc">Aktivizo qoshet e rrumbullakosura në elementë shtesë të ndërfaqes së përdoruesit (kërkon që kopertinat e albumit të jenë të rrumbullakosura)</string>

@@ -215,9 +215,7 @@
     <string name="desc_artist_image">Imagine artist pentru %s</string>
     <string name="lng_playlist_imported">Playlist importat</string>
     <string name="lbl_author">Autor</string>
-    <string name="lbl_donate">Donează</string>
     <string name="lng_playlist_exported">Playlist exportat</string>
-    <string name="lng_supporters_promo">Donează proiectului ca să ai numele adăugat aici!</string>
     <string name="set_headset_autoplay">Redare automată la conectarea căștilor</string>
     <string name="err_no_app">N-a fost găsită nicio aplicație care poate face asta</string>
     <string name="fmt_editing">Se editează %s</string>

@@ -274,14 +274,11 @@
     <string name="lbl_copied">Copiato</string>
     <string name="lbl_report">Segnala</string>
     <string name="lbl_author">Autore</string>
-    <string name="lbl_donate">Dona</string>
-    <string name="lbl_supporters">Sostenitori</string>
     <string name="lbl_error_info">Dettagli errore</string>
     <string name="def_album_count">Nessun album</string>
     <string name="lbl_path">Percorso</string>
     <string name="lbl_empty_playlist">Playlist vuota</string>
     <string name="lbl_import_playlist">Importa playlist</string>
-    <string name="lng_supporters_promo">Dona al progetto, il tuo nome sarà aggiunto qui!</string>
     <string name="err_import_failed">Impossibile importare una playlist da questo file</string>
     <string name="lbl_import">Importa</string>
     <string name="lbl_export">Esporta</string>
@@ -302,7 +299,6 @@
     <string name="lbl_start_playback">Avvia la riproduzione</string>
     <string name="lng_tasker_start">Avvia Auxio utilizzando le ultime impostazioni di riproduzione salvate. Se non è disponibile alcuna impostazione di riproduzione, i brani verranno riprodotti in ordine casuale. La riproduzione inizierà immediatamente.\n\nAttenzione: fai attenzione a controllare questa impostazione; se lo chiudi e poi provi a usarlo di nuovo, è probabile che l\'app si blocchi.</string>
     <string name="lbl_feedback">Feedback</string>
-    <string name="lbl_email">Invia un\'e-mail</string>
     <string name="lbl_github">Apri un\'issue su GitHub</string>
     <string name="def_album">Album sconosciuto</string>
     <string name="lng_empty_genres">I tuoi generi appariranno qui.</string>

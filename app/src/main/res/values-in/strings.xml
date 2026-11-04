@@ -244,9 +244,6 @@
     <string name="lbl_report">Laporkan</string>
     <string name="def_song_count">Tidak ada lagu</string>
     <string name="lbl_author">Pencipta</string>
-    <string name="lbl_donate">Donasi</string>
-    <string name="lbl_supporters">Pendukung</string>
-    <string name="lng_supporters_promo">Donasi ke proyek ini agar nama Anda ditambahkan kesini!</string>
     <string name="set_separators">Pemisah nilai ganda</string>
     <string name="set_audio_desc">Konfigurasikan suara dan perilaku pemutaran</string>
     <string name="set_remember_pause">Ingat jeda</string>
@@ -303,7 +300,6 @@
     <string name="lbl_start_playback">Mulai pemutaran</string>
     <string name="lbl_feedback">Umpan balik</string>
     <string name="lbl_github">Buat masalah di GitHub</string>
-    <string name="lbl_email">Kirim email</string>
     <string name="lng_tasker_start">Memulai Auxio menggunakan status yang disimpan sebelumnya. Jika tidak ada status yang disimpan, semua lagu akan diputar secara acak. Pemutaran akan dimulai segera.\n\nPERINGATAN: Hati-hati saat mengontrol layanan ini, jika Anda menutupnya dan kemudian mencoba menggunakannya lagi, aplikasi kemungkinan besar akan mengalami kegagalan.</string>
     <string name="lng_play_next">Lagu akan diputar selanjutnya</string>
     <string name="lng_empty_albums">Album Anda akan ditampilkan di sini.</string>

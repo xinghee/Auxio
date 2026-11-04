@@ -206,8 +206,6 @@
     <string name="lbl_export_playlist">تصدير قائمة تشغيل</string>
     <string name="lbl_feedback">ملاحظات</string>
     <string name="lbl_github">سجل مشكلة على GitHub</string>
-    <string name="lbl_email">أرسل ايميل</string>
-    <string name="lbl_donate">تبرع</string>
     <string name="set_action_mode_next">تخطى الى التالي</string>
     <string name="set_play_in_parent_with">عند التشغيل من خصائص العنصر</string>
     <string name="set_play_song_none">تشغيل من العناصر المعروظة</string>
@@ -220,7 +218,6 @@
     <string name="lbl_path_style">نمط المسار</string>
     <string name="lbl_more">ألمزيد</string>
     <string name="lbl_path_style_absolute">مطلق</string>
-    <string name="lbl_supporters">الداعمين</string>
     <string name="set_bar_action">فعالية شريط تشغيل مخصصة</string>
     <string name="set_separators_and">العطف(&amp;)</string>
     <string name="lbl_imported_playlist">قائمة تشغيل مستوردة</string>
@@ -234,7 +231,6 @@
     <string name="lbl_replaygain_album">تعديل تثبيت مستوى الصوت للالبوم</string>
     <string name="lng_playlist_imported">تم استيراد قائمة التشغيل</string>
     <string name="lng_playlist_exported">تم تصدير قائمة التشغيل</string>
-    <string name="lng_supporters_promo">تبرع للمشروع لتتم اضافة اسمك هنا!</string>
     <string name="set_action_mode_repeat">وضع التكرار</string>
     <string name="set_play_song_by_itself">تشغيل اغنية محددة</string>
     <string name="set_separators_plus">زائد(+)</string>

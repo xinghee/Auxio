@@ -290,11 +290,8 @@
     <string name="err_export_failed">No se puede exportar la lista de reproducción a este archivo</string>
     <string name="lbl_import_playlist">Importar lista de reproducción</string>
     <string name="lbl_replaygain_track">Ajuste de pista de ganancia de reproducción</string>
-    <string name="lbl_donate">Donar</string>
-    <string name="lbl_supporters">Partidarios</string>
     <string name="lbl_replaygain_album">Ajuste del álbum de ganancia de reproducción</string>
     <string name="lbl_author">Autor</string>
-    <string name="lng_supporters_promo">¡Haz una donación al proyecto para que tu nombre aparezca aquí!</string>
     <string name="set_remember_pause">Recordar la pausa</string>
     <string name="set_remember_pause_desc">Permanecer en reproducción/pausa al saltar o editar la cola</string>
     <string name="set_replay_gain_mode_off">Apagar</string>
@@ -302,7 +299,6 @@
     <string name="lng_tasker_start">Inicia Auxio utilizando el estado previamente guardado. Si no hay ningún estado guardado, todas las canciones se reproducirán aleatoriamente. La reproducción comenzará inmediatamente. \n \nADVERTENCIA: Ten cuidado al controlar este servicio, si lo cierras y luego intentas usarlo de nuevo, probablemente se bloqueará la aplicación.</string>
     <string name="lbl_more">Más</string>
     <string name="lbl_github">Crear una incidencia en GitHub</string>
-    <string name="lbl_email">Enviar un correo electrónico</string>
     <string name="lbl_feedback">Retroalimentación</string>
     <string name="def_album">Álbum desconocido</string>
     <string name="cdc_unknown">Desconocido</string>

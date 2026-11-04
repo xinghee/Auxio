@@ -114,9 +114,6 @@
     <string name="lbl_author">پدیدآور</string>
     <string name="lbl_feedback">بازخورد</string>
     <string name="lbl_github">ایجاد یک مشکل در GitHub</string>
-    <string name="lbl_email">ارسال پست الکترونیکی</string>
-    <string name="lbl_donate">کمک کردن</string>
-    <string name="lbl_supporters">پشتیبانان</string>
     <string name="lng_widget">دیدن و پایش پخش موسیقی</string>
     <string name="lng_indexing">در حال بارگیری کتابخانه موسیقی شما…</string>
     <string name="lng_observing">‌در حال نظارت کتابخانه موسیقی شما برای تغییرات…</string>
@@ -128,7 +125,6 @@
     <string name="lng_playlist_exported">فهرست پخش خارج شد</string>
     <string name="lng_playlist_deleted">فهرست پخش حذف شد</string>
     <string name="lng_playlist_added">به فهرست پخش افزوده شد</string>
-    <string name="lng_supporters_promo">به پروژه کمک کنید تا نام خود را به اینجا اضافه کنید!</string>
     <string name="lng_search_library">جست و جو در کتابخانه…</string>
     <string name="lng_tasker_start">Auxio را با استفاده از وضعیت ذخیره شده قبلی شروع می‌کند. اگر هیچ وضعیت ذخیره شده‌ای در دسترس نباشد، همه آهنگ‌ها به صورت تصادفی پخش می‌شوند. پخش بلافاصله شروع می‌شود.\n\nهشدار: در کنترل این سرویس مراقب باشید، اگر آن را ببندید و دوباره سعی کنید از آن استفاده کنید، احتمالاً برنامه از کار می‌افتد.</string>
     <string name="lng_empty_songs">آهنگ‌های شما اینجا ظاهر می‌شوند.</string>

@@ -283,8 +283,6 @@
     <string name="lbl_path_style_absolute">Kesin</string>
     <string name="lng_playlist_imported">Çalma listesi içe aktarıldı</string>
     <string name="lng_playlist_exported">Çalma listesi dışa aktarıldı</string>
-    <string name="lbl_supporters">Destekçiler</string>
-    <string name="lng_supporters_promo">İsminizin buraya eklenmesi için projeye bağış yapabilirsiniz!</string>
     <string name="set_remember_pause">Durmayı hatırla</string>
     <string name="set_remember_pause_desc">Şarkı durduğunda sonraki şarkılara geçildiği zaman veya çalma sırasını düzenlerken durmaya devam et</string>
     <string name="set_replay_gain_mode_off">Kapalı</string>
@@ -298,7 +296,6 @@
     <string name="lng_empty_genres">Türleriniz burada gösterilecek.</string>
     <string name="lbl_replaygain_track">ReplayGain parça ayarlaması</string>
     <string name="lbl_author">Yazar</string>
-    <string name="lbl_donate">Bağış yap</string>
     <string name="lbl_import_playlist">Çalma listesini içeri aktar</string>
     <string name="lbl_empty_playlist">Boş çalma listesi</string>
     <string name="lbl_path">Dosya yolu</string>
@@ -314,7 +311,6 @@
     <string name="cnt_mp4">MPEG-4 %s içeriyor</string>
     <string name="cdc_alac">Apple Kayıpsız Ses Kodeği (ALAC)</string>
     <string name="lbl_feedback">Geri bildirim</string>
-    <string name="lbl_email">E-posta yolla</string>
     <string name="lbl_github">Github\'da rapor aç</string>
     <string name="err_export_failed">Bu dosyaya bir çalma listesi aktarılamıyor</string>
     <string name="set_with_hidden">Gizli dosyaları içer</string>

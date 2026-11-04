@@ -115,9 +115,6 @@
     <string name="lbl_author_name">ອະເລັກຊານເດີ ເຄບຮາດ</string>
     <string name="lbl_feedback">ຄຳຕຳນິຕິຊົມ</string>
     <string name="lbl_github">ແຈ້ງບັນຫາໃນ GitHub</string>
-    <string name="lbl_email">ສົ່ງອີເມລ໌</string>
-    <string name="lbl_donate">ບໍລິຈາກ</string>
-    <string name="lbl_supporters">ຜູ້ສະໜັບສະໜູນ</string>
     <string name="lng_widget">ເບິ່ງ ແລະ ຄວບຄຸມການຫຼິ້ນເພງ</string>
     <string name="lng_indexing">ກຳລັງໂຫຼດຄັງເພງຂອງທ່ານ…</string>
     <string name="lng_observing">ກຳລັງກວດສອບການປ່ຽນແປງໃນຄັງເພງຂອງທ່ານ…</string>
@@ -129,7 +126,6 @@
     <string name="lng_playlist_exported">ສົ່ງອອກລາຍການເພງແລ້ວ</string>
     <string name="lng_playlist_deleted">ລຶບລາຍການເພງແລ້ວ</string>
     <string name="lng_playlist_added">ເພີ່ມເຂົ້າລາຍການເພງແລ້ວ</string>
-    <string name="lng_supporters_promo">ບໍລິຈາກໃຫ້ໂຄງການເພື່ອເພີ່ມຊື່ຂອງທ່ານໃສ່ບ່ອນນີ້!</string>
     <string name="lng_search_library">ຄົ້ນຫາໃນຄັງເພງຂອງທ່ານ…</string>
     <string name="lng_tasker_start">ເລີ່ມ Auxio ໂດຍໃຊ້ສະຖານະທີ່ບັນທຶກໄວ້ກ່ອນໜ້ານີ້. ຖ້າບໍ່ມີສະຖານະທີ່ບັນທຶກໄວ້, ເພງທັງໝົດຈະຖືກສຸ່ມ. ການຫຼິ້ນຈະເລີ່ມທັນທີ. \n\nຄຳເຕືອນ: ກະລຸນາລະມັດລະວັງໃນການຄວບຄຸມບໍລິການນີ້, ຖ້າທ່ານປິດມັນແລ້ວພະຍາຍາມໃຊ້ມັນອີກຄັ້ງ, ແອັບອາດຈະຂັດຂ້ອງ.</string>
     <string name="lng_empty_songs">ເພງຂອງທ່ານຈະສະແດງຢູ່ບ່ອນນີ້.</string>

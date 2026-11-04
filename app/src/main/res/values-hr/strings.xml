@@ -279,9 +279,6 @@
     <string name="err_import_failed">Nije moguće uvesti popis pjesama iz ove datoteke</string>
     <string name="lbl_empty_playlist">Prazan popis pjesama</string>
     <string name="lbl_author">Autor</string>
-    <string name="lbl_donate">Doniraj</string>
-    <string name="lbl_supporters">Podržavatelji</string>
-    <string name="lng_supporters_promo">Doniraj projektu za dodavanje tvog imena ovdje!</string>
     <string name="lbl_import_playlist">Uvezi popis pjesama</string>
     <string name="err_export_failed">Nije moguće izvesti popis pjesama u ovu datoteku</string>
     <string name="lbl_import">Uvezi</string>
@@ -303,7 +300,6 @@
     <string name="lbl_more">Više</string>
     <string name="lbl_feedback">Povratne informacije</string>
     <string name="lbl_github">Prijavi problem na GitHubu</string>
-    <string name="lbl_email">Pošalji e-mail</string>
     <string name="cdc_alac">Appleov kodek zvuka bez gubitaka (ALAC)</string>
     <string name="def_album">Nepoznat album</string>
     <string name="cdc_unknown">Nepoznato</string>

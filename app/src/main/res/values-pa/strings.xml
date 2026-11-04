@@ -289,9 +289,6 @@
     <string name="lbl_replaygain_track">ਰੀਪਲੇਅਗੇਨ ਟ੍ਰੈਕ ਐਡਜਸਟਮੈਂਟ</string>
     <string name="lbl_replaygain_album">ਰੀਪਲੇਗੇਨ ਐਲਬਮ ਐਡਜਸਟਮੈਂਟ</string>
     <string name="lbl_author">ਲੇਖਕ</string>
-    <string name="lbl_donate">ਦਾਨ ਕਰੋ</string>
-    <string name="lbl_supporters">ਸਮਰਥਕ</string>
-    <string name="lng_supporters_promo">ਆਪਣਾ ਨਾਮ ਇੱਥੇ ਜੋੜਨ ਲਈ ਪ੍ਰੋਜੈਕਟ ਨੂੰ ਦਾਨ ਕਰੋ!</string>
     <string name="set_remember_pause_desc">ਕਤਾਰ ਨੂੰ ਛੱਡਣ ਜਾਂ ਸੰਪਾਦਿਤ ਕਰਨ ਵੇਲੇ ਚਲਾਉਂਦੇ/ਰੋਕੇ ਰਹੋ</string>
     <string name="set_remember_pause">ਵਿਰਾਮ ਯਾਦ ਰੱਖੋ</string>
     <string name="set_replay_gain_mode_off">ਬੰਦ</string>
