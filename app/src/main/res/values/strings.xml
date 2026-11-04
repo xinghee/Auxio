@@ -191,7 +191,7 @@
     <string name="lbl_author">Author</string>
     <string name="lbl_author_name">Alexander Capehart</string>
     <string name="lbl_fork_note">Chinese fixes: tag encoding repair, lyrics, sleep timer</string>
-    <string name="lbl_fork_maintainer">Maintained by xinghee</string>
+    <string name="lbl_fork_maintainer">Maintained by Xinghe</string>
     <string name="lbl_feedback">Feedback</string>
     <string name="lbl_github">Open an issue on the upstream repo</string>
     <string name="lbl_github_fork">Open an issue on this fork</string>

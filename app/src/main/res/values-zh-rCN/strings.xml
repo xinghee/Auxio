@@ -43,7 +43,7 @@
     <string name="sleep_timer_remaining">%1$s 后暂停</string>
     <string name="lbl_author_name">由 Alexander Capehart 开发</string>
     <string name="lbl_fork_note">中文修复版：标签编码修复 · 歌词 · 定时停止</string>
-    <string name="lbl_fork_maintainer">✏️ 由 xinghee 维护</string>
+    <string name="lbl_fork_maintainer">由 星河 维护</string>
     <string name="set_root_title">设置</string>
     <string name="set_ui">外观和感觉</string>
     <string name="set_theme">主题</string>

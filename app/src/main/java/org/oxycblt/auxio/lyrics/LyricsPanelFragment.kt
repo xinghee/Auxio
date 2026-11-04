@@ -18,6 +18,7 @@
  
 package org.oxycblt.auxio.lyrics
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
@@ -27,6 +28,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -164,9 +166,21 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             controller.hide(WindowInsetsCompat.Type.statusBars())
+            // Some ROMs leave a black strip where the status bar used to be, because the
+            // decor view's default background shows through. Paint it with the theme surface.
+            window.decorView.setBackgroundColor(
+                MaterialColors.getColor(
+                    window.decorView,
+                    com.google.android.material.R.attr.colorSurface
+                )
+            )
         } else {
             controller.show(WindowInsetsCompat.Type.statusBars())
+            window.decorView.setBackgroundColor(Color.TRANSPARENT)
         }
+        // Force the insets to be dispatched again, otherwise the app bar keeps its old
+        // status-bar padding and leaves a gap above the toolbar.
+        window.decorView.post { window.decorView.requestApplyInsets() }
     }
 
     /**

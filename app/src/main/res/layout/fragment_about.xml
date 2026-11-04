@@ -202,6 +202,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/about_licenses" />
 
                     <TextView
+                        android:id="@+id/about_fork_maintainer"
+                        style="@style/Widget.Auxio.TextView.Icon.Clickable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_fork_maintainer"
+                        app:drawableStartCompat="@drawable/ic_person_24"
+                        app:drawableTint="?attr/colorControlNormal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/about_profile" />
+
+                    <TextView
                         android:id="@+id/about_fork"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -210,17 +222,6 @@
                         android:paddingEnd="@dimen/spacing_medium"
                         android:paddingBottom="0dp"
                         android:text="@string/lbl_fork_note"
-                        android:textAppearance="?attr/textAppearanceBodySmall"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
-
-                    <TextView
-                        android:id="@+id/about_fork_maintainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/spacing_large"
-                        android:paddingEnd="@dimen/spacing_medium"
-                        android:paddingBottom="@dimen/spacing_medium"
-                        android:text="@string/lbl_fork_maintainer"
                         android:textAppearance="?attr/textAppearanceBodySmall"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
