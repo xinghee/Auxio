@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlin.math.abs
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.oxycblt.auxio.databinding.FragmentLyricsPanelBinding
@@ -192,8 +193,25 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         val binding = binding ?: return
         val recycler = binding.lyricPanelRecycler
         val layoutManager = recycler.layoutManager as? LinearLayoutManager ?: return
-        // Height is still 0 on the first pass, which would scroll to the wrong offset.
-        recycler.post { layoutManager.scrollToPositionWithOffset(index, recycler.height / 3) }
+        recycler.post {
+            val indent = recycler.height / 3
+            if (indent == 0) {
+                layoutManager.scrollToPositionWithOffset(index, 0)
+                return@post
+            }
+            val target = layoutManager.findViewByPosition(index)
+            if (target != null) {
+                // The line is already on screen, so nudge it instead of jumping: a hard
+                // scrollToPositionWithOffset on every line change reads as stuttering.
+                val offset = target.top - indent
+                if (abs(offset) > 1) {
+                    recycler.smoothScrollBy(0, offset)
+                }
+            } else {
+                // Seeking far away: nothing to animate from, position it directly.
+                layoutManager.scrollToPositionWithOffset(index, indent)
+            }
+        }
     }
 
     override fun onDestroyBinding(binding: FragmentLyricsPanelBinding) {

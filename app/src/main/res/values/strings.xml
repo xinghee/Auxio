@@ -190,6 +190,7 @@
 
     <string name="lbl_author">Author</string>
     <string name="lbl_author_name">Alexander Capehart</string>
+    <string name="lbl_fork_note">Chinese fixes: tag encoding repair, lyrics, sleep timer</string>
     <string name="lbl_feedback">Feedback</string>
     <string name="lbl_github">Make an issue on GitHub</string>
 

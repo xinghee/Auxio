@@ -18,6 +18,7 @@
  
 package org.oxycblt.auxio.lyrics
 
+import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -44,11 +45,12 @@ internal class LrcLineAdapter(private val onSeek: (Long) -> Unit) :
         }
         val previous = currentIndex
         currentIndex = index
+        // A payload keeps this a style-only update; rebinding every time made the list flicker.
         if (previous in 0 until itemCount) {
-            notifyItemChanged(previous)
+            notifyItemChanged(previous, PAYLOAD_HIGHLIGHT)
         }
         if (index in 0 until itemCount) {
-            notifyItemChanged(index)
+            notifyItemChanged(index, PAYLOAD_HIGHLIGHT)
         }
     }
 
@@ -57,6 +59,14 @@ internal class LrcLineAdapter(private val onSeek: (Long) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(getItem(position), position == currentIndex)
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            holder.applyHighlight(getItem(position), position == currentIndex)
+        }
+    }
 
     inner class ViewHolder(private val binding: ItemLrcLineBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -71,6 +81,13 @@ internal class LrcLineAdapter(private val onSeek: (Long) -> Unit) :
 
         fun bind(line: LrcLine, isCurrent: Boolean) {
             binding.lrcText.text = line.text
+            binding.lrcTranslation.isVisible = line.translation != null
+            binding.lrcTranslation.text = line.translation.orEmpty()
+            applyHighlight(line, isCurrent)
+        }
+
+        /** Style-only pass, used when the highlight moves without the text changing. */
+        fun applyHighlight(line: LrcLine, isCurrent: Boolean) {
             val attribute =
                 if (isCurrent) {
                     androidx.appcompat.R.attr.colorPrimary
@@ -78,16 +95,19 @@ internal class LrcLineAdapter(private val onSeek: (Long) -> Unit) :
                     com.google.android.material.R.attr.colorOnSurfaceVariant
                 }
             binding.lrcText.setTextColor(MaterialColors.getColor(binding.root, attribute))
+            binding.lrcText.setTypeface(null, if (isCurrent) Typeface.BOLD else Typeface.NORMAL)
             binding.lrcText.setTextSize(
                 TypedValue.COMPLEX_UNIT_SP,
-                if (isCurrent) 20f else 17f
+                if (isCurrent) HIGHLIGHT_SP else IDLE_SP
             )
-            binding.lrcTranslation.isVisible = line.translation != null
-            binding.lrcTranslation.text = line.translation.orEmpty()
         }
     }
 
     private companion object {
+        const val PAYLOAD_HIGHLIGHT = 1
+        const val HIGHLIGHT_SP = 20f
+        const val IDLE_SP = 16f
+
         val DIFF =
             object : DiffUtil.ItemCallback<LrcLine>() {
                 override fun areItemsTheSame(oldItem: LrcLine, newItem: LrcLine) =
