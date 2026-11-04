@@ -30,6 +30,9 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import javax.inject.Inject
 import androidx.core.view.updatePadding
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.activityViewModels
@@ -45,6 +48,7 @@ import org.oxycblt.auxio.music.resolve
 import org.oxycblt.auxio.music.resolveNames
 import org.oxycblt.auxio.playback.queue.QueueViewModel
 import org.oxycblt.auxio.playback.state.RepeatMode
+import org.oxycblt.auxio.playback.state.SleepTimer
 import org.oxycblt.auxio.playback.ui.StyledSeekBar
 import org.oxycblt.auxio.playback.ui.stepper.Direction
 import org.oxycblt.auxio.playback.ui.stepper.StepperOverlay
@@ -77,6 +81,7 @@ class PlaybackPanelFragment :
     StyledSeekBar.Listener,
     StepperOverlay.Listener {
     private val coverPagerAdapter = CoverPagerAdapter(this)
+    @Inject lateinit var sleepTimer: SleepTimer
     private val playbackModel: PlaybackViewModel by activityViewModels()
     private val detailModel: DetailViewModel by activityViewModels()
     private val listModel: ListViewModel by activityViewModels()
@@ -183,6 +188,7 @@ class PlaybackPanelFragment :
 
         // --- VIEWMODEL SETUP --
         collectImmediately(playbackModel.song, ::updateSong)
+        collectImmediately(sleepTimer.remainingMs, ::updateSleepTimer)
         collectImmediately(playbackModel.parent, ::updateParent)
         collectImmediately(playbackModel.positionDs, ::updatePosition)
         collectImmediately(playbackModel.repeatMode, ::updateRepeat)
@@ -238,6 +244,10 @@ class PlaybackPanelFragment :
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_sleep_timer) {
+            showSleepTimerDialog()
+            return true
+        }
         if (item.itemId == R.id.action_open_equalizer) {
             // Launch the system equalizer app, if possible.
             L.d("Launching equalizer")
@@ -385,6 +395,54 @@ class PlaybackPanelFragment :
                 binding.playbackPager.setCurrentItem(command.scroll, false)
             }
         }
+    }
+
+    private fun showSleepTimerDialog() {
+        val remaining = sleepTimer.remainingMs.value
+        val minutes = intArrayOf(20, 40, 60)
+        val labels =
+            arrayOf(
+                getString(R.string.sleep_timer_20),
+                getString(R.string.sleep_timer_40),
+                getString(R.string.sleep_timer_60)
+            )
+        val builder =
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(
+                    if (remaining != null) {
+                        getString(R.string.sleep_timer_remaining, formatDuration(remaining))
+                    } else {
+                        getString(R.string.lbl_sleep_timer)
+                    }
+                )
+                .setItems(labels) { _, which -> sleepTimer.start(minutes[which]) }
+                .setPositiveButton(android.R.string.cancel, null)
+        if (remaining != null) {
+            builder.setNegativeButton(R.string.sleep_timer_off) { _, _ -> sleepTimer.cancel() }
+        }
+        builder.show()
+    }
+
+    private fun updateSleepTimer(remaining: Long?) {
+        val item = binding?.playbackToolbar?.menu?.findItem(R.id.action_sleep_timer) ?: return
+        val attribute =
+            if (remaining != null) {
+                androidx.appcompat.R.attr.colorPrimary
+            } else {
+                com.google.android.material.R.attr.colorOnSurfaceVariant
+            }
+        item.icon?.setTint(MaterialColors.getColor(requireView(), attribute))
+        item.title =
+            if (remaining == null) {
+                getString(R.string.lbl_sleep_timer)
+            } else {
+                getString(R.string.sleep_timer_remaining, formatDuration(remaining))
+            }
+    }
+
+    private fun formatDuration(ms: Long): String {
+        val totalSeconds = (ms + 999) / 1000
+        return "%d:%02d".format(totalSeconds / 60, totalSeconds % 60)
     }
 
     /**

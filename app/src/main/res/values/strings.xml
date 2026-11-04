@@ -171,6 +171,13 @@
     <string name="lbl_code">Source code</string>
     <string name="lbl_wiki">Readme</string>
     <string name="lbl_licenses">Licenses</string>
+    <string name="lbl_releases">Releases</string>
+    <string name="lbl_sleep_timer">Sleep timer</string>
+    <string name="sleep_timer_20">20 minutes</string>
+    <string name="sleep_timer_40">40 minutes</string>
+    <string name="sleep_timer_60">60 minutes</string>
+    <string name="sleep_timer_off">Turn off</string>
+    <string name="sleep_timer_remaining">Pauses in %1$s</string>
     <string name="lbl_library_counts">Library statistics</string>
 
     <string name="lbl_selection">Selection</string>
@@ -185,9 +192,6 @@
     <string name="lbl_author_name">Alexander Capehart</string>
     <string name="lbl_feedback">Feedback</string>
     <string name="lbl_github">Make an issue on GitHub</string>
-    <string name="lbl_email">Send an email</string>
-    <string name="lbl_donate">Donate</string>
-    <string name="lbl_supporters">Supporters</string>
 
     <!-- Long Namespace | Longer Descriptions -->
     <eat-comment />
@@ -203,7 +207,6 @@
     <string name="lng_playlist_exported">Playlist exported</string>
     <string name="lng_playlist_deleted">Playlist deleted</string>
     <string name="lng_playlist_added">Added to playlist</string>
-    <string name="lng_supporters_promo">Donate to the project to get your name added here!</string>
     <!-- As in music library -->
     <string name="lng_search_library">Search your library…</string>
     <string name="lng_tasker_start">

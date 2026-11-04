@@ -70,24 +70,12 @@ class AboutFragment : ViewBindingFragment<FragmentAboutBinding>() {
         binding.aboutCode.setOnClickListener { requireContext().openInBrowser(LINK_SOURCE) }
         binding.aboutWiki.setOnClickListener { requireContext().openInBrowser(LINK_WIKI) }
         binding.aboutLicenses.setOnClickListener { requireContext().openInBrowser(LINK_LICENSES) }
+        binding.aboutReleases.setOnClickListener {
+            requireContext().openInBrowser(LINK_RELEASES)
+        }
         binding.aboutProfile.setOnClickListener { requireContext().openInBrowser(LINK_PROFILE) }
-        binding.aboutDonate.setOnClickListener { requireContext().openInBrowser(LINK_DONATE) }
         binding.aboutFeedbackGithub.setOnClickListener {
             requireContext().openInBrowser(LINK_NEW_ISSUE)
-        }
-        binding.aboutFeedbackEmail.setOnClickListener {
-            requireContext().sendEmail("feedback@auxio.app")
-        }
-
-        binding.aboutSupportersBkkellyh.setOnClickListener {
-            requireContext().openInBrowser(LINK_BKKELLYH)
-        }
-        binding.aboutSupportersGruntstumper.setOnClickListener {
-            requireContext().openInBrowser(LINK_GRUNTSTUMPER)
-        }
-
-        binding.aboutSupportersPromo.setOnClickListener {
-            requireContext().openInBrowser(LINK_DONATE)
         }
 
         // VIEWMODEL SETUP
@@ -125,12 +113,12 @@ class AboutFragment : ViewBindingFragment<FragmentAboutBinding>() {
         // This fork's own pages. Upstream author/profile/donate links stay pointed at upstream,
         // since that is where the original work and its funding live.
         const val LINK_SOURCE = "https://github.com/xinghee/Auxio"
+        const val LINK_RELEASES = "$LINK_SOURCE/releases"
         const val LINK_WIKI = "$LINK_SOURCE/blob/dev/README.md"
         const val LINK_LICENSES = "$LINK_SOURCE/blob/dev/LICENSE"
         const val LINK_NEW_ISSUE = "$LINK_SOURCE/issues/new"
+        // Upstream authorship stays credited; the donation and supporter blocks were dropped
+        // because this fork is not what those links were raising money for.
         const val LINK_PROFILE = "https://github.com/OxygenCobalt"
-        const val LINK_BKKELLYH = "https://github.com/bkkellyh"
-        const val LINK_GRUNTSTUMPER = "https://github.com/gruntstumper"
-        const val LINK_DONATE = "https://github.com/sponsors/OxygenCobalt"
     }
 }
