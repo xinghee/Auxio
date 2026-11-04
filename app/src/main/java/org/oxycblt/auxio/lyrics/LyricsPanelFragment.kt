@@ -76,6 +76,14 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
     private var ticker: Job? = null
     private var originalStatusBarColor: Int? = null
 
+    /**
+     * Status-bar height seen while it was still visible.
+     *
+     * Once the bar is hidden some ROMs report a zero top inset, which would let the toolbar slide
+     * up under the front camera. Keeping the last non-zero value as a floor prevents that.
+     */
+    private var statusBarFloor = 0
+
     private val listener =
         object : PlaybackStateManager.Listener {
             override fun onProgressionChanged(progression: Progression) {
@@ -126,7 +134,12 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         // background. Padding the toolbar keeps the app bar's surface colour covering that strip.
         binding.root.setOnApplyWindowInsetsListener { view, insets ->
             val bars = insets.systemBarInsetsCompat
-            binding.lyricPanelToolbar.updatePadding(top = bars.top)
+            if (bars.top > 0) {
+                statusBarFloor = bars.top
+            }
+            // Never let the toolbar rise above the camera cutout, even if the hidden status bar
+            // makes the system report no top inset.
+            binding.lyricPanelToolbar.updatePadding(top = maxOf(bars.top, statusBarFloor))
             insets
         }
     }
