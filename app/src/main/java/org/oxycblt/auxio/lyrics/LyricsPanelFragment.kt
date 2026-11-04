@@ -74,6 +74,7 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
      */
     private var progression: Progression? = null
     private var ticker: Job? = null
+    private var originalStatusBarColor: Int? = null
 
     private val listener =
         object : PlaybackStateManager.Listener {
@@ -119,9 +120,13 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         repository = LyricsRepository(requireContext())
 
         // Added directly to the activity content view, so nothing else pads the status bar.
+        //
+        // The top inset goes on the toolbar rather than the app bar: padding the app bar would
+        // move its background down with it and leave the strip above showing the black window
+        // background. Padding the toolbar keeps the app bar's surface colour covering that strip.
         binding.root.setOnApplyWindowInsetsListener { view, insets ->
             val bars = insets.systemBarInsetsCompat
-            binding.lyricPanelAppbar.updatePadding(top = bars.top)
+            binding.lyricPanelToolbar.updatePadding(top = bars.top)
             insets
         }
     }
@@ -159,6 +164,7 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
      * devices without a hardware key. Restored in [onStop] and again in [onDestroy] so an unusual
      * teardown cannot leave the rest of the app without a status bar.
      */
+    @Suppress("DEPRECATION")
     private fun setStatusBarHidden(hidden: Boolean) {
         val window = activity?.window ?: return
         val controller = WindowCompat.getInsetsController(window, window.decorView)
@@ -166,8 +172,14 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             controller.hide(WindowInsetsCompat.Type.statusBars())
-            // Some ROMs leave a black strip where the status bar used to be, because the
-            // decor view's default background shows through. Paint it with the theme surface.
+            // Hiding the icons does not hide the strip the system paints behind them; left alone
+            // it stays black on a dark theme. Everything below makes that region take the
+            // surface colour instead: the window bar itself, the decor background, and the app
+            // bar's own background in the layout.
+            if (originalStatusBarColor == null) {
+                originalStatusBarColor = window.statusBarColor
+            }
+            window.statusBarColor = Color.TRANSPARENT
             window.decorView.setBackgroundColor(
                 MaterialColors.getColor(
                     window.decorView,
@@ -176,11 +188,13 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
             )
         } else {
             controller.show(WindowInsetsCompat.Type.statusBars())
+            originalStatusBarColor?.let { window.statusBarColor = it }
+            originalStatusBarColor = null
             window.decorView.setBackgroundColor(Color.TRANSPARENT)
         }
         // Force the insets to be dispatched again, otherwise the app bar keeps its old
         // status-bar padding and leaves a gap above the toolbar.
-        window.decorView.post { window.decorView.requestApplyInsets() }
+        window.decorView.post { window.decorView.apply { requestApplyInsets() } }
     }
 
     /**
