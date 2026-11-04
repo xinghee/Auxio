@@ -16,6 +16,12 @@ jobs:
       run: sudo apt-get install -y ninja-build
     - name: Clone repository
       uses: actions/checkout@v4
+    - name: Point ffmpeg at the GitHub mirror
+      run: |
+        # git.ffmpeg.org is regularly unreachable from CI runners (timeouts and
+        # connection resets). The GitHub mirror carries the same commits, so
+        # rewriting the URL keeps the pinned submodule commit resolvable.
+        git config --global url."https://github.com/FFmpeg/FFmpeg".insteadOf "https://git.ffmpeg.org/ffmpeg"
     - name: Clone submodules
       run: git submodule update --init --recursive
     - name: Set up JDK 21
