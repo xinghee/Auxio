@@ -208,8 +208,19 @@
                         android:paddingStart="@dimen/spacing_large"
                         android:paddingTop="@dimen/spacing_tiny"
                         android:paddingEnd="@dimen/spacing_medium"
-                        android:paddingBottom="@dimen/spacing_medium"
+                        android:paddingBottom="0dp"
                         android:text="@string/lbl_fork_note"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    <TextView
+                        android:id="@+id/about_fork_maintainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/spacing_large"
+                        android:paddingEnd="@dimen/spacing_medium"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        android:text="@string/lbl_fork_maintainer"
                         android:textAppearance="?attr/textAppearanceBodySmall"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
@@ -247,6 +258,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_github"
+                        app:drawableStartCompat="@drawable/ic_feature_request_24"
+                        app:drawableTint="?attr/colorControlNormal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/about_licenses" />
+
+                    <TextView
+                        android:id="@+id/about_feedback_fork"
+                        style="@style/Widget.Auxio.TextView.Icon.Clickable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_github_fork"
                         app:drawableStartCompat="@drawable/ic_feature_request_24"
                         app:drawableTint="?attr/colorControlNormal"
                         app:layout_constraintEnd_toEndOf="parent"

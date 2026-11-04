@@ -32,7 +32,7 @@
     <string name="lbl_save">保存</string>
     <string name="lbl_about">关于</string>
     <string name="lbl_version">版本</string>
-    <string name="lbl_code">源代码</string>
+    <string name="lbl_code">中文修复版源代码</string>
     <string name="lbl_licenses">许可证</string>
     <string name="lbl_releases">版本发布</string>
     <string name="lbl_sleep_timer">定时停止</string>
@@ -43,6 +43,7 @@
     <string name="sleep_timer_remaining">%1$s 后暂停</string>
     <string name="lbl_author_name">由 Alexander Capehart 开发</string>
     <string name="lbl_fork_note">中文修复版：标签编码修复 · 歌词 · 定时停止</string>
+    <string name="lbl_fork_maintainer">✏️ 由 xinghee 维护</string>
     <string name="set_root_title">设置</string>
     <string name="set_ui">外观和感觉</string>
     <string name="set_theme">主题</string>
@@ -300,7 +301,8 @@
     <string name="lbl_start_playback">开始播放</string>
     <string name="lng_tasker_start">使用之前使用的状态启动 Auxio。如果没有可用的已保存状态，将打乱所有歌曲的顺序。播放将立刻开始。 \n \n警告：请小心控制此服务，如果将其关闭然后试图再次使用可能造成应用崩溃。</string>
     <string name="lbl_more">更多</string>
-    <string name="lbl_github">在 GithHub 上开 issue</string>
+    <string name="lbl_github">到原版仓库开 issue</string>
+    <string name="lbl_github_fork">到中文修复版开 issue</string>
     <string name="lbl_feedback">反馈</string>
     <string name="def_album">未知专辑</string>
     <string name="cnt_mp4">含 %s 的 MPEG-4</string>

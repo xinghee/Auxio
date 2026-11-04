@@ -77,6 +77,9 @@ class AboutFragment : ViewBindingFragment<FragmentAboutBinding>() {
         binding.aboutFeedbackGithub.setOnClickListener {
             requireContext().openInBrowser(LINK_NEW_ISSUE)
         }
+        binding.aboutFeedbackFork.setOnClickListener {
+            requireContext().openInBrowser(LINK_NEW_ISSUE_FORK)
+        }
 
         // VIEWMODEL SETUP
         collectImmediately(musicModel.statistics, ::updateStatistics)
@@ -116,7 +119,10 @@ class AboutFragment : ViewBindingFragment<FragmentAboutBinding>() {
         const val LINK_RELEASES = "$LINK_SOURCE/releases"
         const val LINK_WIKI = "$LINK_SOURCE/blob/dev/README.md"
         const val LINK_LICENSES = "$LINK_SOURCE/blob/dev/LICENSE"
-        const val LINK_NEW_ISSUE = "$LINK_SOURCE/issues/new"
+        // The upstream tracker is for problems in Auxio itself; the fork tracker is for
+        // problems in the Chinese fixes.
+        const val LINK_NEW_ISSUE = "https://github.com/OxygenCobalt/Auxio/issues/new"
+        const val LINK_NEW_ISSUE_FORK = "$LINK_SOURCE/issues/new"
         // Upstream authorship stays credited; the donation and supporter blocks were dropped
         // because this fork is not what those links were raising money for.
         const val LINK_PROFILE = "https://github.com/OxygenCobalt"

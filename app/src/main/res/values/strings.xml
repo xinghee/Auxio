@@ -168,7 +168,7 @@
 
     <string name="lbl_about">About</string>
     <string name="lbl_version">Version</string>
-    <string name="lbl_code">Source code</string>
+    <string name="lbl_code">Fork source code</string>
     <string name="lbl_wiki">Readme</string>
     <string name="lbl_licenses">Licenses</string>
     <string name="lbl_releases">Releases</string>
@@ -191,8 +191,10 @@
     <string name="lbl_author">Author</string>
     <string name="lbl_author_name">Alexander Capehart</string>
     <string name="lbl_fork_note">Chinese fixes: tag encoding repair, lyrics, sleep timer</string>
+    <string name="lbl_fork_maintainer">Maintained by xinghee</string>
     <string name="lbl_feedback">Feedback</string>
-    <string name="lbl_github">Make an issue on GitHub</string>
+    <string name="lbl_github">Open an issue on the upstream repo</string>
+    <string name="lbl_github_fork">Open an issue on this fork</string>
 
     <!-- Long Namespace | Longer Descriptions -->
     <eat-comment />
