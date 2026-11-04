@@ -7,6 +7,9 @@ on:
     branches: [dev]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -75,4 +78,19 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Auxio_Canary
-        path: dist/*.apk
+        path: dist/*.apk
+    - name: Publish canary release
+      if: github.event_name == 'workflow_dispatch'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        TAG="cjk-$(TZ=Asia/Shanghai date +%Y%m%d-%H%M)"
+        cp dist/Auxio_arm64.apk "dist/Auxio_${TAG}_arm64.apk"
+        cp dist/Auxio_universal.apk "dist/Auxio_${TAG}_universal.apk"
+        gh release create "$TAG" \
+          "dist/Auxio_${TAG}_arm64.apk" \
+          "dist/Auxio_${TAG}_universal.apk" \
+          --title "Canary $TAG" \
+          --notes "自动构建。\`arm64\` 装 arm64 那个，模拟器/老设备用 \`universal\`。提交 ${GITHUB_SHA:0:7}。" \
+          --prerelease
+        echo "::notice::Release $TAG published"
