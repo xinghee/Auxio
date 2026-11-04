@@ -171,6 +171,39 @@ internal class LyricsRepository(context: Context) {
             gained
         }
 
+    /** Searches online for candidates, so the user can replace a wrong match by hand. */
+    suspend fun searchOnline(song: SongKey): List<OnlineCandidate> =
+        withContext(Dispatchers.IO) {
+            val keyword = LyricsTitle.titleCandidates(song.title).firstOrNull() ?: song.title
+            if (keyword.isBlank()) {
+                emptyList()
+            } else {
+                netease.search(keyword)
+            }
+        }
+
+    /**
+     * Downloads [candidate] and binds it to [song].
+     *
+     * Marked [LyricsSource.MANUAL] so a later scan cannot silently replace a choice the user made.
+     */
+    suspend fun applyOnline(song: SongKey, candidate: OnlineCandidate): Boolean =
+        withContext(Dispatchers.IO) {
+            val lrc = netease.download(candidate.id) ?: return@withContext false
+            val uri = cache.write(song.uri.toString(), lrc) ?: return@withContext false
+            val map = store.load().toMutableMap()
+            map[song.uri.toString()] =
+                LyricsBinding(
+                    songUri = song.uri.toString(),
+                    lrcUri = uri.toString(),
+                    source = LyricsSource.MANUAL,
+                    score = 1f,
+                    label = "${candidate.title} - ${candidate.artist}",
+                )
+            store.save(map)
+            true
+        }
+
     /** Reads and parses the lyrics behind [binding]. */
     suspend fun read(binding: LyricsBinding): Lrc? =
         withContext(Dispatchers.IO) {

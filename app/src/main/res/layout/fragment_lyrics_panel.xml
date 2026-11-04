@@ -17,8 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/toolbar_lyrics_panel"
             app:navigationIcon="@drawable/ic_back_24"
-            app:title="@string/lyrics_title" />
+            app:title="@string/lyrics_title"
+            app:titleCentered="true" />
 
     </org.oxycblt.auxio.ui.CoordinatorAppBarLayout>
 
@@ -32,8 +34,8 @@
             style="@style/Widget.Auxio.RecyclerView.Linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="120dp"
-            android:paddingBottom="160dp"
+            android:paddingTop="56dp"
+            android:paddingBottom="120dp"
             tools:listitem="@layout/item_lrc_line" />
 
         <TextView

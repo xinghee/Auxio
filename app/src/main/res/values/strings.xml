@@ -547,4 +547,8 @@
     <string name="lyrics_match_ok">✓ %1$s  %2$s</string>
     <string name="lyrics_match_fuzzy">Maybe %1$s (%2$d%% similar)</string>
     <string name="lyrics_preview_empty">This song has no lyric text</string>
+    <string name="lyrics_refetch">Search again</string>
+    <string name="lyrics_refetch_none">No matching lyrics found</string>
+    <string name="lyrics_refetch_failed">Could not download those lyrics</string>
+    <string name="lyrics_refetch_done">Lyrics replaced</string>
 </resources>

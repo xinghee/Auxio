@@ -396,4 +396,8 @@
     <string name="lyrics_match_ok">✓ %1$s  %2$s</string>
     <string name="lyrics_match_fuzzy">可能 %1$s（相似度 %2$d%%）</string>
     <string name="lyrics_preview_empty">这首没有歌词内容</string>
+    <string name="lyrics_refetch">重找歌词</string>
+    <string name="lyrics_refetch_none">没有搜到匹配的歌词</string>
+    <string name="lyrics_refetch_failed">歌词下载失败</string>
+    <string name="lyrics_refetch_done">歌词已替换</string>
 </resources>

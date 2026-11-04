@@ -28,6 +28,14 @@ import org.json.JSONObject
 import org.oxycblt.musikr.lyrics.LrcParser
 import timber.log.Timber as L
 
+/** One search hit, shown to the user when picking a replacement. */
+internal data class OnlineCandidate(
+    val id: Long,
+    val title: String,
+    val artist: String,
+    val durationSec: Int,
+)
+
 /** A lyric file fetched from the network. */
 internal data class OnlineLyrics(
     val title: String,
@@ -46,7 +54,7 @@ internal data class OnlineLyrics(
 internal class NeteaseLyrics {
     suspend fun fetch(keyword: String, durationMs: Long): OnlineLyrics? =
         withContext(Dispatchers.IO) {
-            val songs = search(keyword) ?: return@withContext null
+            val songs = searchBlocking(keyword) ?: return@withContext null
             if (songs.isEmpty()) {
                 return@withContext null
             }
@@ -63,14 +71,14 @@ internal class NeteaseLyrics {
             OnlineLyrics(picked.title, picked.artist, lrc, picked.durationSec)
         }
 
-    private data class Hit(
-        val id: Long,
-        val title: String,
-        val artist: String,
-        val durationSec: Int,
-    )
+    /** Every result for [keyword], so the user can pick when the automatic match is wrong. */
+    suspend fun search(keyword: String): List<OnlineCandidate> =
+        withContext(Dispatchers.IO) { searchBlocking(keyword).orEmpty() }
 
-    private fun search(keyword: String): List<Hit>? =
+    /** Downloads the lyric text for a specific [id]. */
+    suspend fun download(id: Long): String? = withContext(Dispatchers.IO) { lyricBlocking(id) }
+
+    private fun searchBlocking(keyword: String): List<OnlineCandidate>? =
         try {
             val query = URLEncoder.encode(keyword, "UTF-8")
             val body = request("https://music.163.com/api/search/get/web?s=$query&type=1&limit=10")
@@ -95,7 +103,7 @@ internal class NeteaseLyrics {
                             }
                         }
                     }
-                Hit(
+                OnlineCandidate(
                     id = id,
                     title = song.optString("name"),
                     artist = artistNames,
@@ -108,7 +116,7 @@ internal class NeteaseLyrics {
         }
 
     /** Fetches the original lyrics and merges the translation into the same lines. */
-    private fun lyric(id: Long): String? =
+    private fun lyricBlocking(id: Long): String? =
         try {
             val body =
                 request("https://music.163.com/api/song/lyric?id=$id&lv=1&kv=1&tv=-1")
