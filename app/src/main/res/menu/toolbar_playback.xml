@@ -6,9 +6,4 @@
         android:icon="@drawable/ic_timer_24"
         android:title="@string/lbl_sleep_timer"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_open_equalizer"
-        android:icon="@drawable/ic_config_24"
-        android:title="@string/lbl_equalizer"
-        app:showAsAction="always" />
 </menu>
