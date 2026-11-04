@@ -21,6 +21,9 @@ package org.oxycblt.auxio.lyrics
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -122,6 +125,7 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
 
     override fun onStart() {
         super.onStart()
+        setStatusBarHidden(true)
         playbackManager.addListener(listener)
         reload()
         ticker?.cancel()
@@ -141,7 +145,27 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         ticker?.cancel()
         ticker = null
         playbackManager.removeListener(listener)
+        setStatusBarHidden(false)
         super.onStop()
+    }
+
+    /**
+     * Hides the status bar while the lyrics are visible.
+     *
+     * Only the status bar: hiding the navigation bar too would make the back gesture awkward on
+     * devices without a hardware key. Restored in [onStop] and again in [onDestroy] so an unusual
+     * teardown cannot leave the rest of the app without a status bar.
+     */
+    private fun setStatusBarHidden(hidden: Boolean) {
+        val window = activity?.window ?: return
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        if (hidden) {
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            controller.hide(WindowInsetsCompat.Type.statusBars())
+        } else {
+            controller.show(WindowInsetsCompat.Type.statusBars())
+        }
     }
 
     /**
@@ -278,6 +302,11 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
                 layoutManager.scrollToPositionWithOffset(index, indent)
             }
         }
+    }
+
+    override fun onDestroy() {
+        setStatusBarHidden(false)
+        super.onDestroy()
     }
 
     override fun onDestroyBinding(binding: FragmentLyricsPanelBinding) {
