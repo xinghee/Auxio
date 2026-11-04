@@ -64,7 +64,7 @@ internal class NeteaseLyrics {
                 songs.filter { target > 0 && abs(it.durationSec - target) <= 8L }
                     .minByOrNull { abs(it.durationSec - target) }
                     ?: songs.first()
-            val lrc = lyric(picked.id) ?: return@withContext null
+            val lrc = lyricBlocking(picked.id) ?: return@withContext null
             if (lrc.isBlank()) {
                 return@withContext null
             }

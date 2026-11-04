@@ -35,6 +35,7 @@ import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.oxycblt.auxio.R
 import org.oxycblt.auxio.databinding.FragmentLyricsPanelBinding
 import org.oxycblt.auxio.music.resolve
 import org.oxycblt.auxio.playback.state.PlaybackStateManager
