@@ -18,6 +18,7 @@
  
 package org.oxycblt.auxio.lyrics
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +29,6 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -76,14 +76,6 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
     private var ticker: Job? = null
     private var originalStatusBarColor: Int? = null
 
-    /**
-     * Status-bar height seen while it was still visible.
-     *
-     * Once the bar is hidden some ROMs report a zero top inset, which would let the toolbar slide
-     * up under the front camera. Keeping the last non-zero value as a floor prevents that.
-     */
-    private var statusBarFloor = 0
-
     private val listener =
         object : PlaybackStateManager.Listener {
             override fun onProgressionChanged(progression: Progression) {
@@ -128,25 +120,18 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         repository = LyricsRepository(requireContext())
 
         // Added directly to the activity content view, so nothing else pads the status bar.
-        //
-        // The top inset goes on the toolbar rather than the app bar: padding the app bar would
-        // move its background down with it and leave the strip above showing the black window
-        // background. Padding the toolbar keeps the app bar's surface colour covering that strip.
+        // The bar is transparent and the app bar's surface sits behind it, so padding the app bar
+        // keeps the title clear of the camera cutout without exposing anything underneath.
         binding.root.setOnApplyWindowInsetsListener { view, insets ->
             val bars = insets.systemBarInsetsCompat
-            if (bars.top > 0) {
-                statusBarFloor = bars.top
-            }
-            // Never let the toolbar rise above the camera cutout, even if the hidden status bar
-            // makes the system report no top inset.
-            binding.lyricPanelToolbar.updatePadding(top = maxOf(bars.top, statusBarFloor))
+            binding.lyricPanelAppbar.updatePadding(top = bars.top)
             insets
         }
     }
 
     override fun onStart() {
         super.onStart()
-        setStatusBarHidden(true)
+        applyTransparentStatusBar()
         playbackManager.addListener(listener)
         reload()
         ticker?.cancel()
@@ -166,7 +151,7 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         ticker?.cancel()
         ticker = null
         playbackManager.removeListener(listener)
-        setStatusBarHidden(false)
+        restoreStatusBar()
         super.onStop()
     }
 
@@ -177,37 +162,34 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
      * devices without a hardware key. Restored in [onStop] and again in [onDestroy] so an unusual
      * teardown cannot leave the rest of the app without a status bar.
      */
+    /**
+     * Makes the status bar transparent instead of hiding it.
+     *
+     * Hiding it is not an option on EMUI/HarmonyOS: [WindowInsetsControllerCompat.hide] removes the
+     * icons but keeps the space and paints it black, and nothing the app draws gets on top of that
+     * layer. A transparent bar with the app bar's colour behind it looks continuous on every ROM,
+     * and the clock stays readable.
+     */
     @Suppress("DEPRECATION")
-    private fun setStatusBarHidden(hidden: Boolean) {
+    private fun applyTransparentStatusBar() {
         val window = activity?.window ?: return
         val controller = WindowCompat.getInsetsController(window, window.decorView)
-        if (hidden) {
-            controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            controller.hide(WindowInsetsCompat.Type.statusBars())
-            // Hiding the icons does not hide the strip the system paints behind them; left alone
-            // it stays black on a dark theme. Everything below makes that region take the
-            // surface colour instead: the window bar itself, the decor background, and the app
-            // bar's own background in the layout.
-            if (originalStatusBarColor == null) {
-                originalStatusBarColor = window.statusBarColor
-            }
-            window.statusBarColor = Color.TRANSPARENT
-            window.decorView.setBackgroundColor(
-                MaterialColors.getColor(
-                    window.decorView,
-                    com.google.android.material.R.attr.colorSurface
-                )
-            )
-        } else {
-            controller.show(WindowInsetsCompat.Type.statusBars())
-            originalStatusBarColor?.let { window.statusBarColor = it }
-            originalStatusBarColor = null
-            window.decorView.setBackgroundColor(Color.TRANSPARENT)
+        if (originalStatusBarColor == null) {
+            originalStatusBarColor = window.statusBarColor
         }
-        // Force the insets to be dispatched again, otherwise the app bar keeps its old
-        // status-bar padding and leaves a gap above the toolbar.
-        window.decorView.post { window.decorView.apply { requestApplyInsets() } }
+        window.statusBarColor = Color.TRANSPARENT
+        // Dark icons on a light surface, light icons on a dark one.
+        val night =
+            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+                Configuration.UI_MODE_NIGHT_YES
+        controller.isAppearanceLightStatusBars = !night
+    }
+
+    @Suppress("DEPRECATION")
+    private fun restoreStatusBar() {
+        val window = activity?.window ?: return
+        originalStatusBarColor?.let { window.statusBarColor = it }
+        originalStatusBarColor = null
     }
 
     /**
@@ -347,7 +329,7 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
     }
 
     override fun onDestroy() {
-        setStatusBarHidden(false)
+        restoreStatusBar()
         super.onDestroy()
     }
 
