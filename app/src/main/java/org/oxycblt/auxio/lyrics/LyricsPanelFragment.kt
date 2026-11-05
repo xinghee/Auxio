@@ -18,15 +18,9 @@
  
 package org.oxycblt.auxio.lyrics
 
-import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -74,7 +68,6 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
      */
     private var progression: Progression? = null
     private var ticker: Job? = null
-    private var originalStatusBarColor: Int? = null
 
     private val listener =
         object : PlaybackStateManager.Listener {
@@ -119,19 +112,11 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         }
         repository = LyricsRepository(requireContext())
 
-        // Added directly to the activity content view, so nothing else pads the status bar.
-        // The bar is transparent and the app bar's surface sits behind it, so padding the app bar
-        // keeps the title clear of the camera cutout without exposing anything underneath.
-        binding.root.setOnApplyWindowInsetsListener { view, insets ->
-            val bars = insets.systemBarInsetsCompat
-            binding.lyricPanelAppbar.updatePadding(top = bars.top)
-            insets
-        }
+
     }
 
     override fun onStart() {
         super.onStart()
-        applyTransparentStatusBar()
         playbackManager.addListener(listener)
         reload()
         ticker?.cancel()
@@ -151,101 +136,7 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         ticker?.cancel()
         ticker = null
         playbackManager.removeListener(listener)
-        restoreStatusBar()
         super.onStop()
-    }
-
-    /**
-     * Hides the status bar while the lyrics are visible.
-     *
-     * Only the status bar: hiding the navigation bar too would make the back gesture awkward on
-     * devices without a hardware key. Restored in [onStop] and again in [onDestroy] so an unusual
-     * teardown cannot leave the rest of the app without a status bar.
-     */
-    /**
-     * Makes the status bar transparent instead of hiding it.
-     *
-     * Hiding it is not an option on EMUI/HarmonyOS: [WindowInsetsControllerCompat.hide] removes the
-     * icons but keeps the space and paints it black, and nothing the app draws gets on top of that
-     * layer. A transparent bar with the app bar's colour behind it looks continuous on every ROM,
-     * and the clock stays readable.
-     */
-    @Suppress("DEPRECATION")
-    private fun applyTransparentStatusBar() {
-        val window = activity?.window ?: return
-        val controller = WindowCompat.getInsetsController(window, window.decorView)
-        if (originalStatusBarColor == null) {
-            originalStatusBarColor = window.statusBarColor
-        }
-        window.statusBarColor = Color.TRANSPARENT
-        // Dark icons on a light surface, light icons on a dark one.
-        val night =
-            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES
-        controller.isAppearanceLightStatusBars = !night
-    }
-
-    @Suppress("DEPRECATION")
-    private fun restoreStatusBar() {
-        val window = activity?.window ?: return
-        originalStatusBarColor?.let { window.statusBarColor = it }
-        originalStatusBarColor = null
-    }
-
-    /**
-     * Searches online and lets the user pick a replacement.
-     *
-     * Deliberately not automatic: when the stored lyrics are wrong, the search's top hit is
-     * usually wrong in the same way, so the choice has to be human.
-     */
-    private fun refetchLyrics() {
-        val song = playbackManager.currentSong ?: return
-        val repo = repository ?: return
-        val context = requireContext()
-        val key =
-            SongKey(
-                uri = song.uri,
-                title = song.name.resolve(context),
-                artist = song.artists.joinToString("/") { it.name.resolve(context) },
-                durationMs = song.durationMs
-            )
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            val candidates =
-                try {
-                    repo.searchOnline(key)
-                } catch (e: Exception) {
-                    L.w(e, "Lyric search failed")
-                    emptyList()
-                }
-            if (candidates.isEmpty()) {
-                context.showToast(R.string.lyrics_refetch_none)
-                return@launch
-            }
-            val labels =
-                candidates
-                    .map {
-                        "${it.title} — ${it.artist}  (${it.durationSec / 60}:" +
-                            "%02d".format(it.durationSec % 60) + ")"
-                    }
-                    .toTypedArray()
-            MaterialAlertDialogBuilder(context)
-                .setTitle(R.string.lyrics_refetch)
-                .setItems(labels) { _, which ->
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        val applied = repo.applyOnline(key, candidates[which])
-                        if (applied) {
-                            loadedSongUri = null
-                            reload()
-                            context.showToast(R.string.lyrics_refetch_done)
-                        } else {
-                            context.showToast(R.string.lyrics_refetch_failed)
-                        }
-                    }
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .show()
-        }
     }
 
     private fun reload() {
@@ -326,11 +217,6 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
                 layoutManager.scrollToPositionWithOffset(index, indent)
             }
         }
-    }
-
-    override fun onDestroy() {
-        restoreStatusBar()
-        super.onDestroy()
     }
 
     override fun onDestroyBinding(binding: FragmentLyricsPanelBinding) {

@@ -9,7 +9,6 @@
     <org.oxycblt.auxio.ui.CoordinatorAppBarLayout
         android:id="@+id/lyric_panel_appbar"
         style="@style/Widget.Auxio.AppBarLayout"
-        android:background="?attr/colorSurface"
         app:liftOnScroll="true"
         app:liftOnScrollTargetViewId="@id/lyric_panel_recycler">
 
