@@ -139,6 +139,62 @@ class LyricsPanelFragment : ViewBindingFragment<FragmentLyricsPanelBinding>() {
         super.onStop()
     }
 
+    /**
+     * Searches online and lets the user pick a replacement.
+     *
+     * Deliberately not automatic: when the stored lyrics are wrong, the search's top hit is
+     * usually wrong in the same way, so the choice has to be human.
+     */
+    private fun refetchLyrics() {
+        val song = playbackManager.currentSong ?: return
+        val repo = repository ?: return
+        val context = requireContext()
+        val key =
+            SongKey(
+                uri = song.uri,
+                title = song.name.resolve(context),
+                artist = song.artists.joinToString("/") { it.name.resolve(context) },
+                durationMs = song.durationMs
+            )
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val candidates =
+                try {
+                    repo.searchOnline(key)
+                } catch (e: Exception) {
+                    L.w(e, "Lyric search failed")
+                    emptyList()
+                }
+            if (candidates.isEmpty()) {
+                context.showToast(R.string.lyrics_refetch_none)
+                return@launch
+            }
+            val labels =
+                candidates
+                    .map {
+                        "${it.title} — ${it.artist}  (${it.durationSec / 60}:" +
+                            "%02d".format(it.durationSec % 60) + ")"
+                    }
+                    .toTypedArray()
+            MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.lyrics_refetch)
+                .setItems(labels) { _, which ->
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val applied = repo.applyOnline(key, candidates[which])
+                        if (applied) {
+                            loadedSongUri = null
+                            reload()
+                            context.showToast(R.string.lyrics_refetch_done)
+                        } else {
+                            context.showToast(R.string.lyrics_refetch_failed)
+                        }
+                    }
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .show()
+        }
+    }
+
     private fun reload() {
         val song = playbackManager.currentSong
         val uri = song?.uri?.toString()
